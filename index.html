@@ -17,149 +17,168 @@
 
 body{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
     background:#eeeeee;
+    font-family:Arial,Helvetica,sans-serif;
     color:#222;
 }
 
 .app{
+    width:100%;
     min-height:100vh;
     display:flex;
     gap:25px;
-    padding:25px;
+    padding:20px;
 }
 
 /* ================= PANEL ================= */
 
 .panel{
-    width:430px;
-    background:white;
+    width:400px;
+    flex-shrink:0;
+    background:#fff;
     padding:25px;
     border-radius:18px;
     box-shadow:0 5px 25px rgba(0,0,0,.12);
 }
 
 .panel h1{
-    margin:0 0 25px;
-    color:#b40000;
-    font-size:28px;
+    margin:0 0 20px;
+    color:#b00000;
 }
 
 label{
     display:block;
+    margin-top:15px;
+    margin-bottom:6px;
     font-weight:bold;
-    margin-top:17px;
-    margin-bottom:7px;
 }
 
 input,
 textarea{
     width:100%;
-    padding:13px;
+    padding:12px;
     border:1px solid #ccc;
     border-radius:9px;
     font-size:16px;
-    font-family:Arial;
+    font-family:Arial,sans-serif;
 }
 
 textarea{
-    min-height:85px;
+    min-height:80px;
     resize:vertical;
 }
 
 .help{
-    font-size:12px;
-    color:#777;
     margin-top:5px;
-}
-
-button{
-    width:100%;
-    border:0;
-    padding:14px;
-    border-radius:10px;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:20px;
+    color:#777;
+    font-size:12px;
 }
 
 .download{
-    background:#b40000;
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:#bd0000;
     color:white;
-}
-
-.download:hover{
-    background:#8d0000;
+    font-size:17px;
+    font-weight:bold;
 }
 
 /* ================= PREVIEW ================= */
 
 .preview-area{
     flex:1;
+    min-width:0;
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    padding:10px;
 }
 
-/*
-    POSTER:
-    900 x 1300 px
-    Rasio 9 : 13
-*/
+/* ================= POSTER ================= */
 
 .poster{
-    width:900px;
-    height:1300px;
-    max-width:100%;
-    aspect-ratio:9 / 13;
+    /*
+       Poster asli:
+       900 x 1300
+       Rasio 9 : 13
+    */
 
+    width:min(900px,100%);
+    aspect-ratio:9 / 13;
     position:relative;
+
     overflow:hidden;
 
     background:
-        radial-gradient(circle at 12% 10%,rgba(255,255,255,.12) 0 8px,transparent 9px),
-        radial-gradient(circle at 90% 20%,rgba(255,255,255,.08) 0 80px,transparent 82px),
-        linear-gradient(145deg,#8b0000,#d00000 45%,#a50000);
+        radial-gradient(
+            circle at 12% 12%,
+            rgba(255,255,255,.12) 0 7px,
+            transparent 8px
+        ),
+        radial-gradient(
+            circle at 88% 22%,
+            rgba(255,255,255,.08) 0 90px,
+            transparent 92px
+        ),
+        linear-gradient(
+            145deg,
+            #870000,
+            #d00000 48%,
+            #a00000
+        );
 
     color:white;
+
+    container-type:inline-size;
 }
 
-/* dekorasi */
+/* ================= DECORASI ================= */
 
 .poster::before{
     content:"";
     position:absolute;
-    width:500px;
-    height:500px;
-    border:2px solid rgba(255,255,255,.10);
+
+    width:60%;
+    aspect-ratio:1;
+
+    top:-25%;
+    right:-20%;
+
+    border:2px solid rgba(255,255,255,.12);
     border-radius:50%;
-    top:-220px;
-    right:-180px;
 }
 
 .poster::after{
     content:"";
     position:absolute;
-    width:450px;
-    height:450px;
-    border:2px solid rgba(255,210,50,.20);
+
+    width:55%;
+    aspect-ratio:1;
+
+    bottom:-25%;
+    left:-20%;
+
+    border:2px solid rgba(255,210,50,.22);
     border-radius:50%;
-    bottom:-230px;
-    left:-200px;
 }
 
-/* semua isi poster berada di atas dekorasi */
+
+/* ================= ISI POSTER ================= */
 
 .poster-content{
-    position:relative;
-    z-index:5;
-    height:100%;
-    padding:65px;
+    position:absolute;
+    inset:0;
+
+    padding:7.2%;
+
     display:flex;
     flex-direction:column;
+
+    z-index:5;
 }
+
 
 /* ================= HEADER ================= */
 
@@ -169,244 +188,331 @@ button{
 
 .brand-name{
     font-family:Georgia,serif;
-    font-size:72px;
+
+    font-size:8cqw;
+    line-height:1;
+
     font-weight:bold;
     font-style:italic;
-    line-height:.95;
+
     color:white;
+
     text-shadow:
-        3px 3px 0 #6d0000,
-        0 0 15px rgba(0,0,0,.3);
+        .35cqw .35cqw 0 #650000,
+        0 0 1.5cqw rgba(0,0,0,.3);
 }
 
 .city{
     display:inline-block;
-    margin-top:18px;
-    padding:10px 45px;
+
+    margin-top:2cqw;
+
+    padding:1cqw 5cqw;
+
     background:white;
     color:#a50000;
-    font-size:32px;
+
+    font-size:3.2cqw;
     font-weight:bold;
-    letter-spacing:8px;
+
+    letter-spacing:.7cqw;
+
     transform:skew(-8deg);
 }
 
-/* ================= MAIN TITLE ================= */
+
+/* ================= TULISAN UTAMA ================= */
 
 .main-title{
-    margin-top:65px;
+
+    margin-top:6.5cqw;
+
+    width:100%;
+
+    min-height:24cqw;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
     text-align:center;
 
-    background:linear-gradient(180deg,#ffffff,#eeeeee);
+    padding:3cqw;
+
+    background:linear-gradient(
+        180deg,
+        #ffffff,
+        #eeeeee
+    );
+
     color:#a50000;
 
-    border:8px solid #ffca28;
-    border-radius:28px;
+    border:.7cqw solid #ffca28;
 
-    padding:30px 25px;
+    border-radius:3cqw;
 
-    font-size:78px;
+    font-size:7cqw;
+
     font-weight:900;
+
     line-height:1.05;
 
+    white-space:pre-line;
+
     text-shadow:
-        4px 5px 0 #650000;
+        .4cqw .5cqw 0 #650000;
 
     box-shadow:
-        0 10px 0 #650000,
-        0 18px 30px rgba(0,0,0,.25);
+        0 1.1cqw 0 #650000,
+        0 2cqw 3cqw rgba(0,0,0,.25);
 
-    white-space:pre-line;
+    overflow:hidden;
 }
+
 
 /* ================= RESERVASI ================= */
 
 .reservation{
-    margin-top:55px;
+    margin-top:5.5cqw;
 }
 
 .reservation-title{
-    width:65%;
-    margin:0 auto;
-    background:#c90000;
-    border:5px solid #ffca28;
-    border-radius:50px;
-    padding:15px;
+
+    width:62%;
+
+    margin:auto;
+
+    padding:1.5cqw;
+
     text-align:center;
 
-    font-size:34px;
-    font-weight:bold;
-    letter-spacing:3px;
+    background:#c90000;
 
-    box-shadow:0 6px 0 #650000;
+    border:.55cqw solid #ffca28;
+
+    border-radius:10cqw;
+
+    font-size:3.4cqw;
+
+    font-weight:bold;
+
+    letter-spacing:.4cqw;
+
+    box-shadow:
+        0 .8cqw 0 #650000;
 }
 
 .phone{
-    margin-top:18px;
-    background:white;
-    color:#111;
-    border:5px solid #ffca28;
-    border-radius:22px;
-    padding:18px;
+
+    margin-top:2.5cqw;
+
+    width:100%;
+
+    padding:2cqw;
+
     text-align:center;
 
-    font-size:42px;
+    background:white;
+
+    color:#111;
+
+    border:.55cqw solid #ffca28;
+
+    border-radius:2.5cqw;
+
+    font-size:4.7cqw;
+
     font-weight:900;
-    letter-spacing:2px;
+
+    letter-spacing:.15cqw;
+
+    white-space:nowrap;
 }
 
-/* ================= BOTTOM ================= */
+
+/* ================= BAGIAN BAWAH ================= */
 
 .bottom{
+
     margin-top:auto;
 
     display:grid;
-    grid-template-columns:1.45fr .8fr;
-    gap:20px;
-    align-items:stretch;
+
+    grid-template-columns:1.45fr .85fr;
+
+    gap:2.2cqw;
+
+    min-height:18cqw;
 }
 
-.info-card,
-.qr-card{
-    background:white;
-    color:#111;
 
-    border:5px solid #ffca28;
-    border-radius:24px;
-
-    min-height:230px;
-}
-
-/* alamat */
+/* ================= ALAMAT ================= */
 
 .info-card{
-    padding:25px;
+
+    background:white;
+
+    color:#111;
+
+    border:.55cqw solid #ffca28;
+
+    border-radius:2.5cqw;
+
+    padding:2.5cqw;
+
+    min-width:0;
 }
 
 .info-title{
+
     color:#b00000;
-    font-size:25px;
+
+    font-size:2.8cqw;
+
     font-weight:900;
-    margin-bottom:15px;
+
+    margin-bottom:1.5cqw;
 }
 
 .address{
-    font-size:27px;
+
+    font-size:2.7cqw;
+
     font-weight:bold;
-    line-height:1.3;
+
+    line-height:1.25;
+
     white-space:pre-line;
+
+    overflow-wrap:anywhere;
 }
 
-/* QR */
+
+/* ================= QR ================= */
 
 .qr-card{
+
+    background:white;
+
+    color:#111;
+
+    border:.55cqw solid #ffca28;
+
+    border-radius:2.5cqw;
+
+    padding:1.5cqw;
+
+    min-width:0;
+
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
+
     justify-content:center;
-    padding:15px;
+
+    overflow:hidden;
 }
 
 #qrcode{
-    width:165px;
-    height:165px;
+
+    width:15cqw;
+    height:15cqw;
+
+    max-width:100%;
+    max-height:100%;
 
     display:flex;
-    align-items:center;
+
     justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+}
+
+#qrcode canvas,
+#qrcode img{
+
+    width:100% !important;
+    height:100% !important;
+
+    max-width:100%;
+    max-height:100%;
+
+    display:block;
 }
 
 .qr-label{
-    margin-top:10px;
-    background:#c90000;
-    color:white;
-    padding:8px 20px;
-    border-radius:20px;
 
-    font-size:18px;
+    margin-top:1cqw;
+
+    padding:.8cqw 2cqw;
+
+    background:#c90000;
+
+    color:white;
+
+    border-radius:2cqw;
+
+    font-size:1.9cqw;
+
     font-weight:bold;
+
+    white-space:nowrap;
 }
+
 
 /* ================= FOOTER ================= */
 
 .footer{
+
     text-align:center;
-    margin-top:18px;
-    font-size:15px;
+
+    margin-top:1.5cqw;
+
+    font-size:1.5cqw;
+
     opacity:.85;
 }
 
 
-/* ================= RESPONSIVE ================= */
+/* ================= HP ================= */
 
-@media(max-width:1000px){
+@media(max-width:700px){
 
     .app{
-        flex-direction:column;
+        display:block;
+        padding:10px;
     }
 
     .panel{
         width:100%;
+        margin-bottom:25px;
     }
 
     .preview-area{
         width:100%;
+        display:flex;
+        justify-content:center;
     }
 
     .poster{
-        width:min(100%,900px);
-        height:auto;
-        aspect-ratio:9/13;
+        width:100%;
+        max-width:500px;
     }
 
-    .poster-content{
-        padding:7.2%;
+}
+
+
+/* ================= DESKTOP ================= */
+
+@media(min-width:1200px){
+
+    .poster{
+        width:700px;
     }
 
-    .brand-name{
-        font-size:8vw;
-    }
-
-    .city{
-        font-size:3.5vw;
-        padding:1.2% 5%;
-    }
-
-    .main-title{
-        margin-top:7%;
-        font-size:8.5vw;
-        padding:3%;
-        border-width:4px;
-    }
-
-    .reservation{
-        margin-top:6%;
-    }
-
-    .reservation-title{
-        font-size:4vw;
-    }
-
-    .phone{
-        font-size:5vw;
-    }
-
-    .info-title{
-        font-size:3vw;
-    }
-
-    .address{
-        font-size:3.2vw;
-    }
-
-    #qrcode{
-        width:14vw;
-        height:14vw;
-    }
-
-    .qr-label{
-        font-size:2.3vw;
-    }
 }
 
 </style>
@@ -424,18 +530,26 @@ button{
 <h1>✏️ Edit Poster</h1>
 
 <label>Nama Outlet</label>
-<input id="outlet"
-       value="Aneka Sambel"
-       oninput="updatePoster()">
+
+<input
+id="outlet"
+value="Aneka Sambel"
+oninput="updatePoster()">
+
 
 <label>Kota / Wilayah</label>
-<input id="city"
-       value="MALANG"
-       oninput="updatePoster()">
+
+<input
+id="city"
+value="MALANG"
+oninput="updatePoster()">
+
 
 <label>Tulisan Utama</label>
-<textarea id="mainTitle"
-          oninput="updatePoster()">KAMI
+
+<textarea
+id="mainTitle"
+oninput="updatePoster()">KAMI
 SUDAH
 BUKA!</textarea>
 
@@ -443,64 +557,83 @@ BUKA!</textarea>
 Gunakan Enter untuk membuat baris baru.
 </div>
 
+
 <label>Nomor Reservasi</label>
-<input id="phone"
-       value="087752406609"
-       oninput="updatePoster()">
+
+<input
+id="phone"
+value="087752406609"
+oninput="updatePoster()">
+
 
 <label>Alamat</label>
-<textarea id="address"
-          oninput="updatePoster()">Sanur, Jotosanur,
+
+<textarea
+id="address"
+oninput="updatePoster()">Sanur, Jotosanur,
 Kec. Tikung,
 Kabupaten Lamongan,
 Jawa Timur</textarea>
 
+
 <label>Teks QR Code</label>
-<input id="qrText"
-       value="https://maps.google.com/?q=Sanur+Jotosanur+Tikung+Lamongan"
-       oninput="updateQR()">
+
+<input
+id="qrText"
+value="https://maps.google.com/?q=Sanur+Jotosanur+Tikung+Lamongan"
+oninput="updateQR()">
 
 <div class="help">
-QR Code akan otomatis berubah sesuai tulisan di atas.
+Masukkan link Google Maps untuk QR lokasi.
 </div>
 
-<button class="download"
-        onclick="downloadPoster()">
+
+<button
+class="download"
+onclick="downloadPoster()">
+
 ⬇ DOWNLOAD POSTER
+
 </button>
 
 </div>
 
 
-<!-- ================= POSTER ================= -->
+<!-- ================= PREVIEW ================= -->
 
 <div class="preview-area">
 
-<div class="poster" id="poster">
+<div
+class="poster"
+id="poster">
 
 <div class="poster-content">
+
 
 <!-- HEADER -->
 
 <div class="brand">
 
-<div class="brand-name"
-     id="outletPreview">
+<div
+class="brand-name"
+id="outletPreview">
 Aneka Sambel
 </div>
 
-<div class="city"
-     id="cityPreview">
+<div
+class="city"
+id="cityPreview">
 MALANG
 </div>
 
 </div>
 
 
-<!-- MAIN TITLE -->
+<!-- TULISAN UTAMA -->
 
-<div class="main-title"
-     id="titlePreview">
+<div
+class="main-title"
+id="titlePreview">
 KAMI
 SUDAH
 BUKA!
@@ -515,17 +648,19 @@ BUKA!
 RESERVASI
 </div>
 
-<div class="phone"
-     id="phonePreview">
+<div
+class="phone"
+id="phonePreview">
 087752406609
 </div>
 
 </div>
 
 
-<!-- BOTTOM -->
+<!-- BAGIAN BAWAH -->
 
 <div class="bottom">
+
 
 <div class="info-card">
 
@@ -533,8 +668,9 @@ RESERVASI
 ALAMAT
 </div>
 
-<div class="address"
-     id="addressPreview">
+<div
+class="address"
+id="addressPreview">
 Sanur, Jotosanur,
 Kec. Tikung,
 Kabupaten Lamongan,
@@ -554,12 +690,14 @@ SCAN LOKASI
 
 </div>
 
+
 </div>
 
 
 <div class="footer">
 Aneka Sambel • Selamat datang
 </div>
+
 
 </div>
 
@@ -572,7 +710,8 @@ Aneka Sambel • Selamat datang
 
 <script>
 
-/* ================= UPDATE POSTER ================= */
+
+/* ================= UPDATE ================= */
 
 function updatePoster(){
 
@@ -594,11 +733,12 @@ function updatePoster(){
 }
 
 
-/* ================= QR CODE ================= */
+/* ================= QR ================= */
 
 function updateQR(){
 
-    const qr = document.getElementById("qrcode");
+    const qr =
+        document.getElementById("qrcode");
 
     qr.innerHTML = "";
 
@@ -606,10 +746,15 @@ function updateQR(){
         document.getElementById("qrText").value;
 
     new QRCode(qr,{
+
         text:text,
+
         width:165,
         height:165,
-        correctLevel:QRCode.CorrectLevel.H
+
+        correctLevel:
+            QRCode.CorrectLevel.H
+
     });
 
 }
@@ -623,9 +768,13 @@ function downloadPoster(){
         document.getElementById("poster");
 
     html2canvas(poster,{
+
         scale:3,
+
         useCORS:true,
+
         backgroundColor:null
+
     }).then(function(canvas){
 
         const link =
@@ -644,7 +793,7 @@ function downloadPoster(){
 }
 
 
-/* ================= INITIAL ================= */
+/* ================= START ================= */
 
 updatePoster();
 updateQR();
