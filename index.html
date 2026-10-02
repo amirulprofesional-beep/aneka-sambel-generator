@@ -16,406 +16,356 @@
 
 body{
     margin:0;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     background:#eeeeee;
     color:#222;
 }
 
-.wrapper{
-    max-width:1400px;
-    margin:auto;
-    padding:25px;
+.app{
+    display:flex;
+    min-height:100vh;
 }
 
-h1{
-    text-align:center;
-    margin:0 0 20px;
-}
+/* =========================
+   PANEL EDIT
+========================= */
 
-.layout{
-    display:grid;
-    grid-template-columns:380px 1fr;
-    gap:35px;
-    align-items:start;
-}
-
-.panel{
+.editor{
+    width:380px;
     background:white;
-    padding:22px;
-    border-radius:18px;
-    box-shadow:0 8px 30px rgba(0,0,0,.12);
+    padding:25px;
+    overflow-y:auto;
 }
 
-.panel h2{
-    margin-top:0;
-    color:#b40000;
+.editor h1{
+    margin:0 0 25px;
+    color:#a90000;
+    font-size:26px;
 }
 
-label{
+.group{
+    margin-bottom:18px;
+}
+
+.group label{
     display:block;
     font-weight:bold;
-    margin-top:15px;
-    margin-bottom:6px;
+    font-size:16px;
+    margin-bottom:7px;
 }
 
-input,
-textarea{
+.group input,
+.group textarea{
     width:100%;
-    padding:12px;
     border:1px solid #ccc;
-    border-radius:9px;
-    font-size:15px;
+    border-radius:10px;
+    padding:12px;
+    font-size:16px;
+    font-family:Arial,sans-serif;
 }
 
-textarea{
-    min-height:75px;
+.group textarea{
+    min-height:80px;
     resize:vertical;
 }
 
-button{
-    border:0;
-    border-radius:10px;
-    padding:13px 18px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:15px;
+.help{
+    font-size:12px;
+    color:#777;
+    margin-top:5px;
 }
 
-.btn{
-    background:#c40000;
+button{
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:14px;
+    margin-top:8px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.previewBtn{
+    background:#b40000;
     color:white;
 }
 
-.btn2{
+.downloadBtn{
     background:#222;
     color:white;
 }
 
-/* AREA PREVIEW */
+/* =========================
+   PREVIEW AREA
+========================= */
+
 .preview-area{
+    flex:1;
     display:flex;
     justify-content:center;
     align-items:flex-start;
-    padding:10px;
+    padding:35px;
+    overflow:auto;
 }
 
-/*
-   UKURAN POSTER:
-   9 cm x 13 cm
-   dibuat dengan rasio yang sama
-*/
+/* =========================
+   POSTER 9 x 13 CM
+========================= */
+
 .poster{
-    width:450px;
-    height:650px;
+    width:900px;
+    height:1300px;
     position:relative;
     overflow:hidden;
 
     background:
-        radial-gradient(circle at 18% 18%, rgba(255,70,70,.45) 0 3%, transparent 4%),
-        radial-gradient(circle at 85% 25%, rgba(255,190,0,.22) 0 10%, transparent 11%),
-        linear-gradient(145deg,#760000,#d00000 45%,#970000 100%);
+        radial-gradient(circle at 15% 10%,rgba(255,255,255,.12) 0 4px,transparent 5px),
+        radial-gradient(circle at 85% 20%,rgba(255,190,0,.12),transparent 25%),
+        linear-gradient(145deg,#7d0000,#c40000 48%,#8e0000);
+
+    background-size:28px 28px,auto,auto;
 
     color:white;
-    box-shadow:0 15px 40px rgba(0,0,0,.30);
+    box-shadow:0 15px 45px rgba(0,0,0,.3);
 }
 
-/* pola titik kiri atas */
+/* dekorasi */
+
 .poster::before{
     content:"";
     position:absolute;
-    top:-20px;
-    left:-20px;
-    width:180px;
-    height:180px;
-
-    background-image:radial-gradient(#ff5a5a 2px,transparent 2.5px);
-    background-size:20px 20px;
-
-    opacity:.45;
+    width:700px;
+    height:700px;
+    border:80px solid rgba(255,255,255,.035);
+    border-radius:50%;
+    right:-380px;
+    top:-260px;
 }
 
-/* lengkungan dekorasi */
 .poster::after{
     content:"";
     position:absolute;
-    right:-130px;
-    top:-90px;
-    width:390px;
-    height:390px;
-
-    border:35px solid rgba(255,255,255,.08);
+    width:700px;
+    height:700px;
+    border:55px solid rgba(255,210,0,.08);
     border-radius:50%;
+    left:-470px;
+    bottom:-350px;
 }
 
-/* HEADER */
-.brand{
+/* =========================
+   HEADER
+========================= */
+
+.header{
     position:absolute;
-    top:30px;
-    left:30px;
-    right:30px;
+    left:70px;
+    right:70px;
+    top:55px;
     text-align:center;
-    z-index:2;
 }
 
-.brand-name{
-    display:inline-block;
-    padding:7px 28px 4px;
-
+.brand{
     font-family:Georgia,serif;
-    font-size:47px;
-    font-weight:bold;
     font-style:italic;
-
+    font-weight:bold;
+    font-size:78px;
+    line-height:.95;
     color:white;
-
     text-shadow:
-        3px 3px 0 #8d0000,
-        5px 5px 0 #ffffff;
+        4px 4px 0 #5c0000,
+        0 0 18px rgba(255,255,255,.25);
 }
 
 .city{
     display:inline-block;
-    margin-top:2px;
-    padding:5px 40px;
-
+    margin-top:18px;
+    padding:9px 55px;
     background:white;
-    color:#a60000;
-
-    font-size:20px;
+    color:#9d0000;
+    font-size:32px;
     font-weight:900;
-    letter-spacing:6px;
-
-    clip-path:polygon(
-        3% 20%,97% 0,
-        94% 100%,6% 90%
-    );
+    letter-spacing:10px;
+    transform:skew(-8deg);
 }
 
-/* AREA UTAMA */
-.main-title{
+/* =========================
+   MAIN MESSAGE
+========================= */
+
+.main-box{
     position:absolute;
-    top:175px;
-    left:25px;
-    right:25px;
-
-    text-align:center;
-    z-index:2;
-
-    font-size:76px;
-    line-height:.82;
-    font-weight:1000;
-    letter-spacing:-4px;
-
-    text-transform:uppercase;
-
-    color:white;
-
-    text-shadow:
-        7px 7px 0 #6f0000,
-        11px 11px 0 #3d0000;
-}
-
-.main-title .yellow{
-    display:block;
-    color:#ffe04b;
-
-    text-shadow:
-        6px 6px 0 #870000,
-        10px 10px 0 #4c0000;
-}
-
-/* efek garis / percikan */
-.spark{
-    position:absolute;
-    z-index:1;
-    width:85px;
-    height:15px;
-    background:#ffd72e;
-    border-radius:50%;
-    transform:rotate(48deg);
-}
-
-.spark.one{
-    left:30px;
-    top:235px;
-}
-
-.spark.two{
-    right:20px;
+    left:55px;
+    right:55px;
     top:310px;
-    transform:rotate(-48deg);
+    text-align:center;
 }
 
-/* RESERVASI */
+.main-text{
+    font-size:145px;
+    line-height:.88;
+    font-weight:900;
+    letter-spacing:-5px;
+    text-transform:uppercase;
+    text-shadow:
+        8px 8px 0 #570000,
+        0 0 25px rgba(0,0,0,.25);
+
+    word-break:break-word;
+}
+
+.main-text .yellow{
+    color:#ffd52e;
+}
+
+.main-text .white{
+    color:white;
+}
+
+/* =========================
+   RESERVATION
+========================= */
+
 .reservation{
     position:absolute;
-    left:25px;
-    right:25px;
-    top:445px;
-    z-index:3;
+    left:65px;
+    right:65px;
+    top:735px;
+    text-align:center;
 }
 
 .res-title{
-    width:190px;
-    margin:auto;
-    padding:9px 10px;
-
-    background:linear-gradient(#e52828,#a90000);
-    border:3px solid #ffd42e;
-    border-radius:30px;
-
-    text-align:center;
-    font-size:21px;
+    display:inline-block;
+    background:#c90000;
+    border:4px solid #ffd52e;
+    border-radius:50px;
+    padding:12px 55px;
+    font-size:32px;
     font-weight:900;
+    letter-spacing:3px;
+    box-shadow:0 7px 0 #650000;
 }
 
-.phone-box{
-    margin-top:-2px;
-
-    background:#fff;
+.phone{
+    margin-top:15px;
+    background:white;
     color:#111;
-
-    border:3px solid #ffd42e;
-    border-radius:18px;
-
-    height:72px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:31px;
-    font-weight:1000;
-    letter-spacing:1px;
-
-    box-shadow:0 7px 0 rgba(100,0,0,.4);
+    border:5px solid #ffd52e;
+    border-radius:25px;
+    padding:22px 15px;
+    font-size:64px;
+    font-weight:900;
+    letter-spacing:2px;
+    box-shadow:0 8px 0 rgba(70,0,0,.6);
 }
 
-.whatsapp{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    background:#20c963;
-    color:white;
+/* =========================
+   BOTTOM INFORMATION
+========================= */
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    margin-right:10px;
-    font-size:25px;
-}
-
-/* BOTTOM */
 .bottom{
     position:absolute;
-    left:25px;
-    right:25px;
-    bottom:35px;
+    left:65px;
+    right:65px;
+    bottom:65px;
 
     display:grid;
-    grid-template-columns:1fr 125px;
-    gap:18px;
+    grid-template-columns:1fr 300px;
+    gap:25px;
+    align-items:stretch;
+}
 
-    z-index:3;
+.address-box,
+.qr-box{
+    background:white;
+    color:#111;
+    border:5px solid #ffd52e;
+    border-radius:25px;
+    box-shadow:0 8px 0 rgba(70,0,0,.5);
 }
 
 .address-box{
-    min-height:125px;
-
-    background:#fff;
-    color:#111;
-
-    border:3px solid #ffd42e;
-    border-radius:20px;
-
-    padding:18px;
-
-    display:flex;
-    align-items:center;
+    padding:25px 30px;
 }
 
-.address-icon{
-    width:42px;
-    height:52px;
-    margin-right:12px;
-
-    color:#d00000;
-    font-size:42px;
-    line-height:1;
+.info-title{
+    color:#b00000;
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:15px;
 }
 
-.address-text{
-    font-size:17px;
+.address{
+    font-size:27px;
     font-weight:bold;
     line-height:1.25;
 }
 
-.address-label{
-    color:#c00000;
-    font-size:12px;
-    font-weight:1000;
-    margin-bottom:4px;
+.small-text{
+    margin-top:18px;
+    font-size:18px;
+    color:#555;
+    line-height:1.3;
 }
 
+/* QR */
+
 .qr-box{
-    background:white;
-    border:3px solid #ffd42e;
-    border-radius:20px;
-
-    padding:9px;
-
+    padding:20px;
+    text-align:center;
     display:flex;
     flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#qrcode{
+    width:210px;
+    height:210px;
+    display:flex;
     align-items:center;
     justify-content:center;
 }
 
-#qrcode{
-    width:95px;
-    height:95px;
+#qrcode img,
+#qrcode canvas{
+    max-width:210px;
+    max-height:210px;
 }
 
-.qr-text{
-    margin-top:4px;
-    background:#c40000;
+.qr-title{
+    margin-top:12px;
+    background:#b40000;
     color:white;
-    padding:5px 9px;
-    border-radius:12px;
-
-    font-size:11px;
-    font-weight:1000;
+    border-radius:20px;
+    padding:8px 22px;
+    font-size:18px;
+    font-weight:bold;
 }
 
-/* garis emas bawah */
-.gold-line{
-    position:absolute;
-    bottom:-15px;
-    left:-40px;
+/* =========================
+   RESPONSIVE
+========================= */
 
-    width:540px;
-    height:55px;
+@media(max-width:900px){
 
-    border-top:12px solid #ffd72e;
-    border-radius:50%;
-    transform:rotate(4deg);
-}
-
-/* responsive */
-@media(max-width:850px){
-    .layout{
-        grid-template-columns:1fr;
+    .app{
+        flex-direction:column;
     }
 
-    .panel{
-        max-width:500px;
-        margin:auto;
+    .editor{
+        width:100%;
+    }
+
+    .preview-area{
+        padding:20px;
     }
 
     .poster{
-        transform:scale(.85);
         transform-origin:top center;
-        margin-bottom:-90px;
+        transform:scale(.55);
+        margin-bottom:-550px;
     }
 }
 </style>
@@ -423,111 +373,108 @@ button{
 
 <body>
 
-<div class="wrapper">
-
-<h1>Generator Poster Aneka Sambel</h1>
-
-<div class="layout">
+<div class="app">
 
 <!-- =========================
-     PANEL EDIT
+     EDITOR
 ========================= -->
 
-<div class="panel">
+<div class="editor">
 
-<h2>✏️ Edit Poster</h2>
+<h1>✏️ Edit Poster</h1>
 
+<div class="group">
 <label>Nama Outlet</label>
-<input id="nama" value="Aneka Sambel"
-       oninput="updatePoster()">
+<input id="outlet" value="Aneka Sambel">
+</div>
 
+<div class="group">
 <label>Kota / Wilayah</label>
-<input id="kota" value="MALANG"
-       oninput="updatePoster()">
+<input id="city" value="MALANG">
+</div>
 
+<div class="group">
 <label>Tulisan Utama</label>
-<textarea id="judul"
-          oninput="updatePoster()">KAMI|SUDAH|BUKA!</textarea>
+<textarea id="main">KAMI|SUDAH|BUKA!</textarea>
+<div class="help">
+Gunakan tanda | untuk membuat baris baru.
+</div>
+</div>
 
-<small>
-Gunakan tanda <b>|</b> untuk membuat baris baru.
-</small>
-
+<div class="group">
 <label>Nomor Reservasi</label>
-<input id="nomor" value="087752406609"
-       oninput="updatePoster()">
+<input id="phone" value="087752406609">
+</div>
 
+<div class="group">
 <label>Alamat</label>
-<textarea id="alamat"
-oninput="updatePoster()">Sanur, Jotosanur, Kec. Tikung, Kabupaten Lamongan, Jawa Timur</textarea>
+<textarea id="address">Sanur, Jotosanur, Kec. Tikung, Kabupaten Lamongan, Jawa Timur</textarea>
+</div>
 
-<label>Teks QR Code</label>
-<input id="qrtext" value="SCAN LOKASI"
-       oninput="updatePoster()">
+<div class="group">
+<label>Tulisan Kecil</label>
+<textarea id="small">Silakan datang dan nikmati menu kami</textarea>
+</div>
 
-<label>Link / Lokasi untuk QR Code</label>
-<textarea id="qrurl"
-oninput="updatePoster()">https://www.google.com/maps/search/?api=1&query=Sanur%2C+Jotosanur%2C+Kec.+Tikung%2C+Kabupaten+Lamongan%2C+Jawa+Timur</textarea>
+<div class="group">
+<label>Isi QR Code</label>
+<textarea id="qrtext">https://maps.google.com/?q=Sanur+Jotosanur+Tikung+Lamongan</textarea>
+<div class="help">
+Bisa isi link Google Maps, WhatsApp, Instagram, atau informasi lainnya.
+</div>
+</div>
 
-<button class="btn" onclick="downloadPoster()">
-⬇️ DOWNLOAD POSTER
+<button class="previewBtn" onclick="updatePoster()">
+🔄 Update Poster
 </button>
 
-<button class="btn2" onclick="resetPoster()">
-↩️ RESET
+<button class="downloadBtn" onclick="downloadPoster()">
+⬇️ Download Poster
 </button>
 
 </div>
 
 
 <!-- =========================
-     PREVIEW POSTER
+     POSTER
 ========================= -->
 
 <div class="preview-area">
 
 <div class="poster" id="poster">
 
-    <div class="brand">
+    <div class="header">
 
-        <div class="brand-name" id="pNama">
+        <div class="brand" id="posterOutlet">
             Aneka Sambel
         </div>
 
-        <div class="city" id="pKota">
+        <div class="city" id="posterCity">
             MALANG
         </div>
 
     </div>
 
 
-    <div class="spark one"></div>
-    <div class="spark two"></div>
+    <div class="main-box">
 
+        <div class="main-text" id="posterMain">
+            <div class="white">KAMI</div>
+            <div class="yellow">SUDAH</div>
+            <div class="white">BUKA!</div>
+        </div>
 
-    <div class="main-title" id="pJudul">
-        <span>KAMI</span>
-        <span class="yellow">SUDAH</span>
-        <span>BUKA!</span>
     </div>
 
 
     <div class="reservation">
 
         <div class="res-title">
-            RESERVASI:
+            RESERVASI
         </div>
 
-        <div class="phone-box">
-
-            <div class="whatsapp">
-                ☎
-            </div>
-
-            <span id="pNomor">
-                087752406609
-            </span>
-
+        <div class="phone" id="posterPhone">
+            087752406609
         </div>
 
     </div>
@@ -537,21 +484,17 @@ oninput="updatePoster()">https://www.google.com/maps/search/?api=1&query=Sanur%2
 
         <div class="address-box">
 
-            <div class="address-icon">
-                📍
+            <div class="info-title">
+                ALAMAT
             </div>
 
-            <div>
+            <div class="address" id="posterAddress">
+                Sanur, Jotosanur, Kec. Tikung,
+                Kabupaten Lamongan, Jawa Timur
+            </div>
 
-                <div class="address-label">
-                    ALAMAT
-                </div>
-
-                <div class="address-text" id="pAlamat">
-                    Sanur, Jotosanur, Kec. Tikung,
-                    Kabupaten Lamongan, Jawa Timur
-                </div>
-
+            <div class="small-text" id="posterSmall">
+                Silakan datang dan nikmati menu kami
             </div>
 
         </div>
@@ -561,18 +504,13 @@ oninput="updatePoster()">https://www.google.com/maps/search/?api=1&query=Sanur%2
 
             <div id="qrcode"></div>
 
-            <div class="qr-text" id="pQrText">
+            <div class="qr-title">
                 SCAN LOKASI
             </div>
 
         </div>
 
     </div>
-
-
-    <div class="gold-line"></div>
-
-</div>
 
 </div>
 
@@ -585,165 +523,178 @@ oninput="updatePoster()">https://www.google.com/maps/search/?api=1&query=Sanur%2
 
 function updatePoster(){
 
-    const nama =
-        document.getElementById("nama").value;
+    const outlet =
+        document.getElementById("outlet").value;
 
-    const kota =
-        document.getElementById("kota").value;
+    const city =
+        document.getElementById("city").value;
 
-    const judul =
-        document.getElementById("judul").value;
+    const main =
+        document.getElementById("main").value;
 
-    const nomor =
-        document.getElementById("nomor").value;
+    const phone =
+        document.getElementById("phone").value;
 
-    const alamat =
-        document.getElementById("alamat").value;
+    const address =
+        document.getElementById("address").value;
+
+    const small =
+        document.getElementById("small").value;
 
     const qrtext =
         document.getElementById("qrtext").value;
 
-    const qrurl =
-        document.getElementById("qrurl").value;
+
+    /* OUTLET */
+
+    document.getElementById("posterOutlet")
+        .textContent = outlet;
 
 
-    document.getElementById("pNama").textContent =
-        nama;
+    /* CITY */
 
-    document.getElementById("pKota").textContent =
-        kota;
-
-    document.getElementById("pNomor").textContent =
-        nomor;
-
-    document.getElementById("pAlamat").textContent =
-        alamat;
-
-    document.getElementById("pQrText").textContent =
-        qrtext;
+    document.getElementById("posterCity")
+        .textContent = city;
 
 
-    /*
-       Judul otomatis dibuat per baris
-    */
+    /* MAIN TEXT */
 
-    const judulBox =
-        document.getElementById("pJudul");
+    const lines = main
+        .split("|")
+        .filter(x => x.trim() !== "");
 
-    judulBox.innerHTML = "";
+    const mainElement =
+        document.getElementById("posterMain");
 
-    const baris =
-        judul.split("|");
+    mainElement.innerHTML = "";
 
-    baris.forEach((text,index)=>{
+    lines.forEach((line,index)=>{
 
-        const span =
-            document.createElement("span");
+        const div =
+            document.createElement("div");
 
-        span.textContent = text;
+        div.textContent = line.trim();
 
-        /*
-          Baris kedua dibuat warna kuning
-        */
+        if(index % 2 === 1){
 
-        if(index === 1){
-            span.className = "yellow";
+            div.className = "yellow";
+
+        }else{
+
+            div.className = "white";
+
         }
 
-        judulBox.appendChild(span);
+        mainElement.appendChild(div);
 
     });
 
 
-    /*
-       Buat ulang QR CODE
-    */
+    /* PHONE */
+
+    document.getElementById("posterPhone")
+        .textContent = phone;
+
+
+    /* ADDRESS */
+
+    document.getElementById("posterAddress")
+        .textContent = address;
+
+
+    /* SMALL TEXT */
+
+    document.getElementById("posterSmall")
+        .textContent = small;
+
+
+    /* QR CODE */
 
     const qr =
         document.getElementById("qrcode");
 
     qr.innerHTML = "";
 
-    if(qrurl.trim() !== ""){
+    new QRCode(qr,{
+        text:qrtext || "Aneka Sambel",
+        width:210,
+        height:210,
+        correctLevel:QRCode.CorrectLevel.H
+    });
 
-        new QRCode(qr,{
-            text:qrurl,
-            width:95,
-            height:95,
-            correctLevel:QRCode.CorrectLevel.H
-        });
 
+    /* otomatis mengecilkan tulisan utama
+       kalau terlalu panjang */
+
+    let size = 145;
+
+    mainElement.style.fontSize = size + "px";
+
+    while(
+        mainElement.scrollHeight > 390 &&
+        size > 65
+    ){
+
+        size -= 5;
+
+        mainElement.style.fontSize =
+            size + "px";
     }
+
+
+    /* outlet */
+
+    let outletSize = 78;
+
+    document.getElementById("posterOutlet")
+        .style.fontSize = outletSize + "px";
 
 }
 
 
-/*
-   DOWNLOAD POSTER
-*/
+/* =========================
+   DOWNLOAD
+========================= */
 
-function downloadPoster(){
+async function downloadPoster(){
+
+    updatePoster();
 
     const poster =
         document.getElementById("poster");
 
-    html2canvas(poster,{
-        scale:3,
-        useCORS:true,
-        backgroundColor:null
-    }).then(canvas=>{
+    const canvas =
+        await html2canvas(poster,{
+            scale:3,
+            backgroundColor:null,
+            useCORS:true
+        });
 
-        const link =
-            document.createElement("a");
+    const link =
+        document.createElement("a");
 
-        link.download =
-            "poster-aneka-sambel.png";
+    link.download =
+        "poster-aneka-sambel.png";
 
-        link.href =
-            canvas.toDataURL("image/png");
+    link.href =
+        canvas.toDataURL("image/png");
 
-        link.click();
-
-    });
-
+    link.click();
 }
 
 
-/*
-   RESET
-*/
+/* =========================
+   LIVE PREVIEW
+========================= */
 
-function resetPoster(){
+document.querySelectorAll(
+    "#outlet,#city,#main,#phone,#address,#small,#qrtext"
+).forEach(input=>{
 
-    document.getElementById("nama").value =
-        "Aneka Sambel";
+    input.addEventListener("input",updatePoster);
 
-    document.getElementById("kota").value =
-        "MALANG";
+});
 
-    document.getElementById("judul").value =
-        "KAMI|SUDAH|BUKA!";
-
-    document.getElementById("nomor").value =
-        "087752406609";
-
-    document.getElementById("alamat").value =
-        "Sanur, Jotosanur, Kec. Tikung, Kabupaten Lamongan, Jawa Timur";
-
-    document.getElementById("qrtext").value =
-        "SCAN LOKASI";
-
-    document.getElementById("qrurl").value =
-        "https://www.google.com/maps/search/?api=1&query=Sanur%2C+Jotosanur%2C+Kec.+Tikung%2C+Kabupaten+Lamongan%2C+Jawa+Timur";
-
-    updatePoster();
-
-}
-
-
-/*
-   Jalankan pertama kali
-*/
 
 updatePoster();
 
