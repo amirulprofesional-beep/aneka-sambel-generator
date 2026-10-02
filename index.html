@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Generator Poster Aneka Sambel</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 *{
@@ -32,12 +36,12 @@ h1{
 .sub{
   text-align:center;
   color:#666;
-  margin-bottom:25px;
+  margin-bottom:20px;
 }
 
-.layout{
+.grid{
   display:grid;
-  grid-template-columns:380px 1fr;
+  grid-template-columns:390px 1fr;
   gap:25px;
   align-items:start;
 }
@@ -46,18 +50,13 @@ h1{
   background:white;
   padding:22px;
   border-radius:18px;
-  box-shadow:0 5px 25px #0002;
-}
-
-.panel h2{
-  margin-top:0;
+  box-shadow:0 8px 30px #00000018;
 }
 
 label{
   display:block;
-  font-weight:bold;
-  margin-top:15px;
-  margin-bottom:6px;
+  font-weight:700;
+  margin:14px 0 7px;
 }
 
 input,
@@ -69,190 +68,296 @@ button{
 
 input,
 textarea{
-  padding:11px;
-  border:1px solid #ccc;
+  padding:12px;
+  border:1px solid #cccccc;
   border-radius:9px;
 }
 
 textarea{
-  min-height:80px;
+  min-height:75px;
   resize:vertical;
-}
-
-input[type="color"]{
-  height:45px;
-  padding:3px;
 }
 
 button{
   border:0;
-  padding:13px;
-  border-radius:10px;
+  border-radius:9px;
+  padding:13px 15px;
+  font-weight:700;
   cursor:pointer;
-  font-weight:bold;
   margin-top:12px;
 }
 
-.download{
-  background:#d40000;
+.primary{
+  background:#c90000;
   color:white;
 }
 
-.reset{
+.secondary{
   background:#eeeeee;
+  color:#222;
 }
 
-.preview-area{
+.hint{
+  font-size:12px;
+  color:#777;
+  margin-top:8px;
+  line-height:1.45;
+}
+
+.previewbox{
   display:flex;
   justify-content:center;
-  background:#ddd;
-  padding:20px;
-  border-radius:18px;
+  align-items:flex-start;
   overflow:auto;
+  padding:10px;
 }
 
-/* POSTER */
-
+/* POSTER 9 x 13 CM */
 #poster{
-  width:720px;
-  height:900px;
-  flex:none;
+  width:9cm;
+  height:13cm;
   position:relative;
   overflow:hidden;
-  background:#d40000;
-  color:white;
-  text-align:center;
-  box-shadow:0 5px 25px #0004;
-}
-
-/* LOGO */
-
-.logo{
-  position:absolute;
-  top:28px;
-  left:35px;
-  width:145px;
-  height:100px;
-  object-fit:contain;
-  display:none;
-}
-
-/* NAMA OUTLET */
-
-.outlet{
-  position:absolute;
-  top:48px;
-  right:35px;
-  left:200px;
-  font-size:32px;
-  font-weight:500;
-  text-align:right;
-}
-
-/* JUDUL BESAR */
-
-.main-title{
-  position:absolute;
-  top:145px;
-  left:50px;
-  right:50px;
-  font-family:Georgia,serif;
-  font-size:78px;
-  line-height:.98;
-  font-weight:900;
-  color:white;
-  text-shadow:
-    4px 4px 0 #111,
-    -2px -2px 0 #111,
-    2px -2px 0 #111,
-    -2px 2px 0 #111,
-    0 0 25px #fff8;
-}
-
-/* RESERVASI */
-
-.reserve-title{
-  position:absolute;
-  top:570px;
-  left:0;
-  right:0;
-  font-size:32px;
-  font-weight:bold;
-}
-
-.phone{
-  position:absolute;
-  top:620px;
-  left:20px;
-  right:20px;
-  font-size:48px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-/* ALAMAT */
-
-.address{
-  position:absolute;
-  top:700px;
-  left:150px;
-  right:35px;
-  font-size:25px;
-  line-height:1.35;
-  text-align:left;
-  border-left:9px solid white;
-  padding-left:22px;
-}
-
-/* FOTO MAKANAN */
-
-.food{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  object-position:center;
-  display:none;
-}
-
-/* TABLECLOTH */
-
-.tablecloth{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  height:75px;
   background:
-    repeating-linear-gradient(
-      0deg,
-      #fff 0,
-      #fff 18px,
-      #d22 18px,
-      #d22 36px
-    );
-  opacity:.9;
-  display:none;
+    radial-gradient(circle at 15% 15%,#ef3b3b 0,#ef3b3b 5%,transparent 6%),
+    linear-gradient(145deg,#760000,#c40000 45%,#8d0000);
+  color:white;
+  box-shadow:0 8px 25px #00000055;
+  padding:0.38cm;
 }
 
-@media(max-width:900px){
+/* dekorasi */
+.circle1,
+.circle2,
+.line1,
+.line2{
+  position:absolute;
+  pointer-events:none;
+}
 
-  .layout{
+.circle1{
+  width:3.2cm;
+  height:3.2cm;
+  border-radius:50%;
+  background:#ffb800;
+  opacity:.16;
+  right:-1.2cm;
+  top:1.3cm;
+}
+
+.circle2{
+  width:2.4cm;
+  height:2.4cm;
+  border-radius:50%;
+  background:#ffcc33;
+  opacity:.13;
+  left:-1cm;
+  bottom:1.5cm;
+}
+
+.line1{
+  width:6cm;
+  height:.09cm;
+  background:#ffcc33;
+  transform:rotate(-18deg);
+  left:-.7cm;
+  top:2.9cm;
+}
+
+.line2{
+  width:6cm;
+  height:.09cm;
+  background:#ffcc33;
+  transform:rotate(16deg);
+  right:-1cm;
+  bottom:2.7cm;
+}
+
+/* judul */
+.brand{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  margin-top:.15cm;
+}
+
+.brand .name{
+  font-size:.58cm;
+  font-weight:900;
+  color:#ffffff;
+  letter-spacing:.02cm;
+  text-shadow:2px 2px 0 #6d0000;
+}
+
+.brand .city{
+  font-size:.28cm;
+  font-weight:700;
+  color:#ffd43b;
+  letter-spacing:.12cm;
+  margin-top:.04cm;
+}
+
+/* headline */
+.headline{
+  position:relative;
+  z-index:2;
+  margin-top:.35cm;
+  text-align:center;
+  background:#ffffff;
+  color:#9d0000;
+  border:.08cm solid #ffcc33;
+  border-radius:.22cm;
+  padding:.22cm .12cm;
+  box-shadow:0 .10cm .0cm #650000;
+}
+
+.headline .big{
+  font-size:.72cm;
+  font-weight:900;
+  line-height:.9;
+  letter-spacing:-.02cm;
+}
+
+.headline .small{
+  font-size:.25cm;
+  font-weight:700;
+  margin-top:.08cm;
+  color:#555;
+}
+
+/* reservation */
+.reservation{
+  position:relative;
+  z-index:2;
+  margin-top:.35cm;
+  text-align:center;
+}
+
+.reservation-title{
+  display:inline-block;
+  background:#ffcc33;
+  color:#7e0000;
+  font-size:.26cm;
+  font-weight:900;
+  padding:.08cm .35cm;
+  border-radius:.3cm;
+}
+
+.reservation-number{
+  margin-top:.08cm;
+  background:#ffffff;
+  color:#111;
+  border-radius:.18cm;
+  padding:.13cm .08cm;
+  font-size:.42cm;
+  font-weight:900;
+  letter-spacing:.015cm;
+}
+
+/* informasi bawah */
+.bottom{
+  position:absolute;
+  left:.38cm;
+  right:.38cm;
+  bottom:.45cm;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1fr .85fr;
+  gap:.15cm;
+}
+
+.info{
+  background:#ffffff;
+  color:#222;
+  border:.055cm solid #ffcc33;
+  border-radius:.18cm;
+  padding:.15cm;
+  min-height:2.25cm;
+}
+
+.info-title{
+  color:#b00000;
+  font-size:.20cm;
+  font-weight:900;
+  margin-bottom:.08cm;
+}
+
+.info-text{
+  font-size:.19cm;
+  line-height:1.25;
+  font-weight:600;
+}
+
+.qrbox{
+  background:#ffffff;
+  border:.055cm solid #ffcc33;
+  border-radius:.18cm;
+  padding:.10cm;
+  text-align:center;
+  color:#222;
+}
+
+#qr{
+  width:1.55cm;
+  height:1.55cm;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#qr img{
+  width:1.55cm !important;
+  height:1.55cm !important;
+}
+
+.qr-title{
+  font-size:.17cm;
+  font-weight:900;
+  color:#b00000;
+  margin-top:.04cm;
+}
+
+.footer{
+  position:absolute;
+  left:.38cm;
+  right:.38cm;
+  bottom:.15cm;
+  text-align:center;
+  font-size:.13cm;
+  color:#ffffffaa;
+  z-index:3;
+}
+
+/* mobile */
+@media(max-width:900px){
+  .grid{
     grid-template-columns:1fr;
   }
 
-  .panel{
-    width:100%;
+  .previewbox{
+    order:-1;
+  }
+}
+
+/* saat print */
+@media print{
+  body{
+    background:white;
   }
 
-  .preview-area{
-    justify-content:flex-start;
+  .wrap > h1,
+  .wrap > .sub,
+  .panel{
+    display:none !important;
+  }
+
+  .previewbox{
+    padding:0;
   }
 
   #poster{
-    transform-origin:top left;
+    box-shadow:none;
   }
 }
 </style>
@@ -262,230 +367,227 @@ button{
 
 <div class="wrap">
 
-<h1>🌶️ Generator Poster Aneka Sambel</h1>
+<h1>Generator Poster Aneka Sambel</h1>
+
 <div class="sub">
-Buat poster outlet sendiri — semua tulisan bisa diganti
+Isi informasi di sebelah kiri. Poster akan berubah otomatis.
 </div>
 
-<div class="layout">
+<div class="grid">
 
-<!-- FORM -->
-
+<!-- PANEL INPUT -->
 <div class="panel">
 
-<h2>✏️ Custom Poster</h2>
-
 <label>Nama Outlet</label>
-<input id="outletInput"
-       value="Aneka Sambel Malang"
-       oninput="updatePoster()">
+<input id="nama" value="Aneka Sambel">
 
-<label>Judul Utama</label>
-<textarea id="titleInput"
-oninput="updatePoster()">Kami Sudah Buka!</textarea>
+<label>Kota / Wilayah</label>
+<input id="kota" value="MALANG">
 
-<label>Tulisan Reservasi</label>
-<input id="reserveInput"
-       value="Reservasi:"
-       oninput="updatePoster()">
+<label>Tulisan Utama</label>
+<textarea id="headline">KAMI SUDAH BUKA!</textarea>
 
-<label>Nomor WhatsApp</label>
-<input id="phoneInput"
-       value="087752406609"
-       oninput="updatePoster()">
+<label>Tulisan Kecil</label>
+<input id="subheadline" value="Silakan datang dan nikmati menu kami">
+
+<label>Nomor Reservasi</label>
+<input id="nomor" value="087752406609">
 
 <label>Alamat</label>
-<textarea id="addressInput"
-oninput="updatePoster()">Sanur, Jotosanur, Kec. Tikung,
-Kabupaten Lamongan, Jawa Timur</textarea>
+<textarea id="alamat">Sanur, Jotosanur, Kec. Tikung, Kabupaten Lamongan, Jawa Timur</textarea>
 
-<label>Warna Background</label>
-<input type="color"
-       id="bgInput"
-       value="#d40000"
-       oninput="updatePoster()">
+<label>Judul QR Code</label>
+<input id="qrtitle" value="SCAN LOKASI">
 
-<label>Upload Logo</label>
-<input type="file"
-       id="logoInput"
-       accept="image/*"
-       onchange="loadLogo(event)">
+<label>Isi QR Code</label>
+<textarea id="qrtext">https://maps.google.com/</textarea>
 
-<label>Upload Foto Makanan</label>
-<input type="file"
-       id="foodInput"
-       accept="image/*"
-       onchange="loadFood(event)">
+<label>Teks Footer</label>
+<input id="footer" value="Aneka Sambel • Selamat datang">
 
-<button class="download" onclick="downloadPoster()">
-⬇️ DOWNLOAD POSTER PNG
+<button class="primary" onclick="downloadPoster()">
+DOWNLOAD POSTER PNG
 </button>
 
-<button class="reset" onclick="resetForm()">
-🔄 RESET
+<button class="secondary" onclick="resetForm()">
+RESET
 </button>
+
+<div class="hint">
+Ukuran poster otomatis 9 cm × 13 cm.
+<br>
+Semua tulisan dapat diubah tanpa mengedit kode lagi.
+</div>
 
 </div>
 
 
 <!-- PREVIEW -->
-
-<div class="preview-area">
+<div class="previewbox">
 
 <div id="poster">
 
-<img id="logo"
-     class="logo">
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="line1"></div>
+<div class="line2"></div>
 
-<div id="outlet"
-     class="outlet">
-Aneka Sambel Malang
+
+<div class="brand">
+  <div class="name" id="pNama">Aneka Sambel</div>
+  <div class="city" id="pKota">MALANG</div>
 </div>
 
-<div id="mainTitle"
-     class="main-title">
-Kami Sudah Buka!
-</div>
 
-<div id="reserve"
-     class="reserve-title">
-Reservasi:
-</div>
+<div class="headline">
 
-<div id="phone"
-     class="phone">
-087752406609
-</div>
+  <div class="big" id="pHeadline">
+    KAMI SUDAH BUKA!
+  </div>
 
-<div id="address"
-     class="address">
-Sanur, Jotosanur, Kec. Tikung,<br>
-Kabupaten Lamongan, Jawa Timur
-</div>
-
-<img id="food"
-     class="food">
-
-<div class="tablecloth"
-     id="cloth">
-</div>
-
-</div>
-
-</div>
-
-</div>
+  <div class="small" id="pSubheadline">
+    Silakan datang dan nikmati menu kami
+  </div>
 
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
-</script>
+<div class="reservation">
+
+  <div class="reservation-title">
+    RESERVASI
+  </div>
+
+  <div class="reservation-number" id="pNomor">
+    087752406609
+  </div>
+
+</div>
+
+
+<div class="bottom">
+
+  <div class="info">
+
+    <div class="info-title">
+      ALAMAT
+    </div>
+
+    <div class="info-text" id="pAlamat">
+      Sanur, Jotosanur, Kec. Tikung,
+      Kabupaten Lamongan, Jawa Timur
+    </div>
+
+  </div>
+
+
+  <div class="qrbox">
+
+    <div id="qr"></div>
+
+    <div class="qr-title" id="pQrTitle">
+      SCAN LOKASI
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="footer" id="pFooter">
+  Aneka Sambel • Selamat datang
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 
 <script>
 
-function updatePoster(){
-
-  document.getElementById("outlet").textContent =
-    document.getElementById("outletInput").value ||
-    "Nama Outlet";
-
-  document.getElementById("mainTitle").textContent =
-    document.getElementById("titleInput").value ||
-    "Kami Sudah Buka!";
-
-  document.getElementById("reserve").textContent =
-    document.getElementById("reserveInput").value ||
-    "Reservasi:";
-
-  document.getElementById("phone").textContent =
-    document.getElementById("phoneInput").value ||
-    "Nomor WhatsApp";
-
-  document.getElementById("address").innerHTML =
-    document.getElementById("addressInput").value
-    .replace(/\n/g,"<br>");
-
-  document.getElementById("poster").style.background =
-    document.getElementById("bgInput").value;
+function val(id){
+  return document.getElementById(id).value.trim();
 }
 
 
-function loadLogo(event){
+function update(){
 
-  const file = event.target.files[0];
+  document.getElementById("pNama").textContent =
+    val("nama") || "Aneka Sambel";
 
-  if(!file) return;
+  document.getElementById("pKota").textContent =
+    val("kota") || "MALANG";
 
-  const reader = new FileReader();
+  document.getElementById("pHeadline").textContent =
+    val("headline") || "KAMI SUDAH BUKA!";
 
-  reader.onload = function(e){
+  document.getElementById("pSubheadline").textContent =
+    val("subheadline") || "Silakan datang dan nikmati menu kami";
 
-    const logo = document.getElementById("logo");
+  document.getElementById("pNomor").textContent =
+    val("nomor") || "087752406609";
 
-    logo.src = e.target.result;
-    logo.style.display = "block";
+  document.getElementById("pAlamat").textContent =
+    val("alamat") || "Alamat outlet";
 
-  };
+  document.getElementById("pQrTitle").textContent =
+    val("qrtitle") || "SCAN LOKASI";
 
-  reader.readAsDataURL(file);
-}
+  document.getElementById("pFooter").textContent =
+    val("footer") || "Aneka Sambel";
 
 
-function loadFood(event){
+  /* QR CODE */
+  const qr = document.getElementById("qr");
 
-  const file = event.target.files[0];
+  qr.innerHTML = "";
 
-  if(!file) return;
+  new QRCode(qr,{
+    text: val("qrtext") || "https://maps.google.com/",
+    width:155,
+    height:155,
+    colorDark:"#111111",
+    colorLight:"#ffffff",
+    correctLevel:QRCode.CorrectLevel.H
+  });
 
-  const reader = new FileReader();
-
-  reader.onload = function(e){
-
-    const food = document.getElementById("food");
-    const cloth = document.getElementById("cloth");
-
-    food.src = e.target.result;
-    food.style.display = "block";
-
-    cloth.style.display = "block";
-
-  };
-
-  reader.readAsDataURL(file);
 }
 
 
 function resetForm(){
 
-  document.getElementById("outletInput").value =
-    "Aneka Sambel Malang";
+  document.getElementById("nama").value =
+    "Aneka Sambel";
 
-  document.getElementById("titleInput").value =
-    "Kami Sudah Buka!";
+  document.getElementById("kota").value =
+    "MALANG";
 
-  document.getElementById("reserveInput").value =
-    "Reservasi:";
+  document.getElementById("headline").value =
+    "KAMI SUDAH BUKA!";
 
-  document.getElementById("phoneInput").value =
+  document.getElementById("subheadline").value =
+    "Silakan datang dan nikmati menu kami";
+
+  document.getElementById("nomor").value =
     "087752406609";
 
-  document.getElementById("addressInput").value =
-    "Sanur, Jotosanur, Kec. Tikung,\nKabupaten Lamongan, Jawa Timur";
+  document.getElementById("alamat").value =
+    "Sanur, Jotosanur, Kec. Tikung, Kabupaten Lamongan, Jawa Timur";
 
-  document.getElementById("bgInput").value =
-    "#d40000";
+  document.getElementById("qrtitle").value =
+    "SCAN LOKASI";
 
-  document.getElementById("logo").style.display =
-    "none";
+  document.getElementById("qrtext").value =
+    "https://maps.google.com/";
 
-  document.getElementById("food").style.display =
-    "none";
+  document.getElementById("footer").value =
+    "Aneka Sambel • Selamat datang";
 
-  document.getElementById("cloth").style.display =
-    "none";
-
-  updatePoster();
+  update();
 }
 
 
@@ -494,7 +596,7 @@ async function downloadPoster(){
   const poster = document.getElementById("poster");
 
   const canvas = await html2canvas(poster,{
-    scale:2,
+    scale:4,
     useCORS:true,
     backgroundColor:null
   });
@@ -502,16 +604,38 @@ async function downloadPoster(){
   const link = document.createElement("a");
 
   link.download =
-    (document.getElementById("outletInput").value ||
-    "poster-aneka-sambel") + ".png";
+    (val("nama") || "poster-aneka-sambel")
+    .replace(/[^\w.-]+/g,"_")
+    + ".png";
 
   link.href = canvas.toDataURL("image/png");
 
   link.click();
+
 }
 
 
-updatePoster();
+/* semua input langsung mengubah poster */
+
+[
+  "nama",
+  "kota",
+  "headline",
+  "subheadline",
+  "nomor",
+  "alamat",
+  "qrtitle",
+  "qrtext",
+  "footer"
+].forEach(id => {
+
+  document.getElementById(id)
+    .addEventListener("input",update);
+
+});
+
+
+update();
 
 </script>
 
