@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Generator Gambar Info Outlet</title>
+<title>Generator Poster Outlet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@500;600;700;800&family=Titan+One&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3f1ee;--panel:#fff;--ink:#1d1a17;--mut:#6b645c;--line:#ddd7cf;--acc:#c8261b}
+:root{--bg:#f3f1ee;--panel:#fff;--ink:#1d1a17;--mut:#6b645c;--line:#ddd7cf;--acc:#d4090f}
 @media (prefers-color-scheme:dark){:root{--bg:#161412;--panel:#221f1c;--ink:#f1ece6;--mut:#a39b91;--line:#383330}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1.45}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Poppins","Trebuchet MS",sans-serif;line-height:1.45}
 .wrap{display:grid;grid-template-columns:minmax(300px,440px) 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
 @media(max-width:860px){.wrap{grid-template-columns:1fr}}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
@@ -17,289 +19,343 @@ h1{font-size:20px;margin:0 0 4px}
 fieldset{border:0;border-top:1px solid var(--line);margin:14px 0 0;padding:12px 0 0}
 legend{font-weight:700;font-size:14px;padding:0 6px 0 0}
 label{display:block;font-size:13px;color:var(--mut);margin:8px 0 3px}
-input[type=text],textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:14px}
-textarea{min-height:92px;resize:vertical}
+input[type=text],input[type=file],textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:14px}
+textarea{min-height:80px;resize:vertical}
 input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
-.row{display:flex;gap:10px;align-items:center}
+.row{display:flex;gap:10px;align-items:center;margin-top:10px}
 .row label{margin:0}
 input[type=color]{width:44px;height:34px;border:1px solid var(--line);border-radius:6px;background:none;padding:2px}
-.hint{font-size:12px;color:var(--mut);margin-top:3px}
 .chk{display:flex;gap:8px;align-items:center;color:var(--ink);margin:8px 0 0}
+.hint{font-size:12px;color:var(--mut);margin-top:3px}
 .preview{position:sticky;top:20px;align-self:start;text-align:center}
-canvas{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line);background:#fff}
-.btns{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
-button{padding:10px 18px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}
-button.main{background:var(--acc);border-color:var(--acc);color:#fff}
+canvas{max-width:100%;max-height:92vh;height:auto;border-radius:8px;border:1px solid var(--line)}
+button{margin-top:12px;padding:10px 22px;border-radius:8px;border:0;background:var(--acc);color:#fff;font:inherit;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
 <div class="panel">
-  <h1>Generator Info Outlet</h1>
-  <p class="sub">Isi data di bawah, gambar di sebelah otomatis berubah. Klik Unduh PNG kalau sudah pas.</p>
+  <h1>Generator Poster Outlet</h1>
+  <p class="sub">Isi data, poster di sebelah berubah otomatis. Klik Unduh PNG kalau sudah pas.</p>
 
-  <fieldset><legend>Outlet</legend>
-    <label for="nama">Nama outlet</label>
-    <input type="text" id="nama" value="Sambal Mantap Outlet Pusat">
-    <label for="tag">Tagline</label>
-    <input type="text" id="tag" value="Pedasnya bikin nambah nasi">
-    <div class="row" style="margin-top:10px">
-      <input type="color" id="warna" value="#c8261b"><label for="warna">Warna tema</label>
-    </div>
+  <fieldset><legend>Logo</legend>
+    <label for="nama">Nama brand</label>
+    <input type="text" id="nama" value="Aneka Sambel">
+    <label for="sub">Subjudul / cabang</label>
+    <input type="text" id="sub" value="MALANG">
+    <label for="logo">Atau unggah logo sendiri (menggantikan nama brand)</label>
+    <input type="file" id="logo" accept="image/*">
   </fieldset>
 
-  <fieldset><legend>Jam buka</legend>
-    <label for="jam">Satu baris satu jadwal, pisahkan dengan tanda |</label>
-    <textarea id="jam">Senin - Jumat | 10.00 - 21.00
-Sabtu | 10.00 - 22.00
-Minggu | 11.00 - 20.00
-Hari libur nasional | Tutup</textarea>
+  <fieldset><legend>Headline (maks. 3 baris)</legend>
+    <input type="text" id="h1" value="KAMI" aria-label="Baris 1">
+    <input type="text" id="h2" value="SUDAH" aria-label="Baris 2" style="margin-top:6px">
+    <input type="text" id="h3" value="BUKA!" aria-label="Baris 3" style="margin-top:6px">
   </fieldset>
 
-  <fieldset><legend>Aneka sambal</legend>
-    <label for="sambal">Satu baris satu sambal. Tingkat pedas 1-5 setelah tanda | (boleh dikosongkan)</label>
-    <textarea id="sambal">Sambal Bawang | 3
-Sambal Matah | 2
-Sambal Terasi | 4
-Sambal Ijo | 3
-Sambal Dabu-dabu | 4
-Sambal Setan | 5</textarea>
-    <label class="chk"><input type="checkbox" id="showLevel" checked> Tampilkan tingkat pedas</label>
+  <fieldset><legend>Reservasi</legend>
+    <label for="lblres">Label</label>
+    <input type="text" id="lblres" value="RESERVASI:">
+    <label for="wa">Nomor WhatsApp</label>
+    <input type="text" id="wa" value="087752406609">
   </fieldset>
 
-  <fieldset><legend>Info pesanan</legend>
-    <label for="pesan">Satu baris satu poin</label>
-    <textarea id="pesan">Pesan lewat WhatsApp, GoFood, GrabFood, atau ShopeeFood
-Pesanan dalam kota diantar 30-45 menit
-Pesan untuk acara minimal H-1
-Pembayaran tunai, QRIS, dan transfer</textarea>
-  </fieldset>
-
-  <fieldset><legend>Alamat dan kontak</legend>
-    <label for="alamat">Alamat outlet</label>
-    <textarea id="alamat" style="min-height:64px">Jl. Contoh Raya No. 12, Kelurahan Contoh, Kota Contoh</textarea>
-    <label for="telp">Telepon / WhatsApp</label>
-    <input type="text" id="telp" value="0812-3456-7890">
-  </fieldset>
-
-  <fieldset><legend>Kode</legend>
+  <fieldset><legend>Alamat dan QR</legend>
+    <label for="alamat">Alamat outlet (Enter = pindah baris)</label>
+    <textarea id="alamat">Sanur, Jotosanur,
+Kec. Tikung,
+Kabupaten Lamongan,
+Jawa Timur</textarea>
     <label class="chk"><input type="checkbox" id="showQR" checked> Tampilkan QR code</label>
-    <label for="qr">Isi QR (link menu, Google Maps, atau wa.me)</label>
-    <input type="text" id="qr" value="https://wa.me/6281234567890">
-    <label class="chk"><input type="checkbox" id="showBar" checked> Tampilkan barcode</label>
-    <label for="bar">Isi barcode (kode outlet / nomor pesanan)</label>
-    <input type="text" id="bar" value="OUTLET-001">
-    <div class="hint">Barcode format Code 128, huruf dan angka tanpa karakter khusus.</div>
+    <label for="qr">Isi QR (link Google Maps, menu, atau wa.me)</label>
+    <input type="text" id="qr" value="https://maps.google.com/?q=Jotosanur+Tikung+Lamongan">
+    <label for="lblqr">Tulisan di bawah QR</label>
+    <input type="text" id="lblqr" value="SCAN LOKASI">
+  </fieldset>
+
+  <fieldset><legend>Info tambahan (kosongkan untuk menyembunyikan)</legend>
+    <label for="jam">Jam buka: satu baris satu jadwal, pisahkan dengan |</label>
+    <textarea id="jam">Senin - Jumat | 10.00 - 21.00
+Sabtu - Minggu | 10.00 - 22.00</textarea>
+    <label for="sambal">Aneka sambel: satu baris satu sambel, tingkat pedas 1-5 setelah |</label>
+    <textarea id="sambal">Sambel Bawang | 3
+Sambel Matah | 2
+Sambel Terasi | 4
+Sambel Ijo | 3
+Sambel Setan | 5</textarea>
+    <label class="chk"><input type="checkbox" id="showLevel" checked> Tampilkan tingkat pedas</label>
+    <label for="pesan">Info pesanan: satu baris satu poin</label>
+    <textarea id="pesan"></textarea>
+  </fieldset>
+
+  <fieldset><legend>Warna</legend>
+    <div class="row"><input type="color" id="warna" value="#d4090f"><label for="warna">Warna utama</label></div>
+    <div class="row"><input type="color" id="aksen" value="#ffc928"><label for="aksen">Warna aksen</label></div>
   </fieldset>
 </div>
 
 <div class="preview">
-  <canvas id="cv" width="1080" height="1400" aria-label="Pratinjau gambar info outlet"></canvas>
-  <div class="btns">
-    <button class="main" id="dl">Unduh PNG</button>
-  </div>
+  <canvas id="cv" width="1080" height="1560" aria-label="Pratinjau poster"></canvas><br>
+  <button id="dl">Unduh PNG</button>
 </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 const $=id=>document.getElementById(id);
-const FONT='"Trebuchet MS",Verdana,Arial,sans-serif';
-const W=1080,PAD=60,CW=W-PAD*2,IN=36;
-
-/* ---------- Code 128 (set B) ---------- */
-const C128="212222,222122,222221,121223,121322,131222,122213,122312,132212,221213,221312,231212,112232,122132,122231,113222,123122,123221,223211,221132,221231,213212,223112,312131,311222,321122,321221,312212,322112,322211,212123,212321,232121,111323,131123,131321,112313,132113,132311,211313,231113,231311,112133,112331,132131,113123,113321,133121,313121,211331,231131,213113,213311,213131,311123,311321,331121,312113,312311,332111,314111,221411,431111,111224,111422,121124,121421,141122,141221,112214,112412,122114,122411,142112,142211,241211,221114,413111,241112,134111,111242,121142,121241,114212,124112,124211,411212,421112,421211,212141,214121,412121,111143,111341,131141,114113,114311,411113,411311,113141,114131,311141,411131,211412,211214,211232,2331112".split(",");
-function code128(text){
-  const vals=[104];
-  for(const ch of text){const c=ch.charCodeAt(0);vals.push(c>=32&&c<=126?c-32:0)}
-  let sum=104;for(let i=1;i<vals.length;i++)sum+=i*vals[i];
-  vals.push(sum%103,106);
-  return vals.map(v=>C128[v]).join("");
-}
+const HF='"Titan One","Arial Black",Impact,sans-serif',SC='"Lobster","Brush Script MT",cursive',TX='"Poppins","Trebuchet MS",Arial,sans-serif';
+const W=1080,PAD=60,CW=W-PAD*2;
+let logoImg=null;
 
 /* ---------- Helpers ---------- */
-function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.roundRect?ctx.roundRect(x,y,w,h,r):ctx.rect(x,y,w,h)}
-function wrap(ctx,text,maxW){
+function rr(c,x,y,w,h,r){c.beginPath();c.roundRect?c.roundRect(x,y,w,h,r):c.rect(x,y,w,h)}
+function wrap(c,text,maxW){
   const out=[];
   for(const para of text.split("\n")){
     let line="";
     for(const word of para.split(/\s+/).filter(Boolean)){
       const t=line?line+" "+word:word;
-      if(ctx.measureText(t).width>maxW&&line){out.push(line);line=word}else line=t;
+      if(c.measureText(t).width>maxW&&line){out.push(line);line=word}else line=t;
     }
     out.push(line);
   }
   return out;
 }
-const lines=id=>$(id).value.split("\n").map(s=>s.trim()).filter(Boolean);
+const ls=id=>$(id).value.split("\n").map(s=>s.trim()).filter(Boolean);
 function shade(hex,amt){
-  const n=parseInt(hex.slice(1),16);
-  const f=c=>Math.max(0,Math.min(255,Math.round(c+amt)));
+  const n=parseInt(hex.slice(1),16),f=v=>Math.max(0,Math.min(255,Math.round(v+amt)));
   return "rgb("+f(n>>16)+","+f((n>>8)&255)+","+f(n&255)+")";
 }
+function fit(c,wt,fam,t,maxW,maxS){c.font=wt+" 100px "+fam;return Math.min(maxS,100*maxW/(c.measureText(t).width||1))}
+function spaced(c,t,cx,y,sp){
+  const ws=[...t].map(ch=>c.measureText(ch).width);
+  const tot=ws.reduce((a,b)=>a+b,0)+sp*(t.length-1);
+  let x=cx-tot/2;c.textAlign="left";
+  [...t].forEach((ch,i)=>{c.fillText(ch,x,y);x+=ws[i]+sp});
+}
+const noise=(i,s)=>Math.abs(Math.sin(i*12.9898+s*78.233)*43758.5453)%1;
+function brush(c,x,y,w,h,col,seed){
+  c.fillStyle=col;c.beginPath();const n=44;
+  for(let i=0;i<=n;i++)c.lineTo(x+w*i/n,y+noise(i,seed)*h*.14);
+  for(let i=n;i>=0;i--)c.lineTo(x+w*i/n,y+h-noise(i,seed+5)*h*.14);
+  c.closePath();c.fill();
+}
+function pill(c,cx,y,w,h,txt,fs,main,acc){
+  const g=c.createLinearGradient(0,y,0,y+h);g.addColorStop(0,shade(main,25));g.addColorStop(1,shade(main,-40));
+  rr(c,cx-w/2,y,w,h,h/2);c.fillStyle=g;c.fill();c.strokeStyle=acc;c.lineWidth=4;c.stroke();
+  c.fillStyle="#fff";c.font=`800 ${fs}px ${TX}`;c.textAlign="center";c.fillText(txt,cx,y+h/2+fs*.35);
+}
+function waIcon(c,cx,cy,r){
+  c.fillStyle="#fff";c.beginPath();c.arc(cx,cy,r,0,7);c.fill();
+  c.fillStyle="#25d366";c.beginPath();c.arc(cx,cy,r-9,0,7);c.fill();
+  c.strokeStyle="#fff";c.lineWidth=r*.2;c.lineCap="round";c.beginPath();
+  c.moveTo(cx-r*.32,cy-r*.36);c.bezierCurveTo(cx-r*.5,cy+r*.1,cx-r*.05,cy+r*.5,cx+r*.36,cy+r*.36);c.stroke();
+}
+function pin(c,cx,cy,s,col){
+  c.fillStyle=col;c.beginPath();c.moveTo(cx,cy+s);
+  c.bezierCurveTo(cx-s,cy,cx-s*.7,cy-s*.75,cx,cy-s*.75);
+  c.bezierCurveTo(cx+s*.7,cy-s*.75,cx+s,cy,cx,cy+s);c.fill();
+  c.fillStyle="#fff";c.beginPath();c.arc(cx,cy-s*.15,s*.28,0,7);c.fill();
+}
+function splash(c,x,y,len,ang,col){c.save();c.translate(x,y);c.rotate(ang);c.fillStyle=col;rr(c,-len/2,-9,len,18,9);c.fill();c.restore()}
 
-/* ---------- Pelukis ---------- */
-function paint(ctx,theme){
-  const dark=shade(theme,-70);
-  ctx.textBaseline="alphabetic";
-  let y=0;
+/* ---------- Latar ---------- */
+function bg(c,H,main,acc){
+  const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,shade(main,10));g.addColorStop(1,shade(main,-60));
+  c.fillStyle=g;c.fillRect(0,0,W,H);
+  c.lineCap="round";c.strokeStyle="rgba(0,0,0,.13)";c.lineWidth=170;
+  c.beginPath();c.moveTo(-50,H*.35);c.bezierCurveTo(260,H*.42,150,H*.6,-50,H*.68);c.stroke();
+  c.beginPath();c.moveTo(W+50,H*.3);c.bezierCurveTo(820,H*.38,920,H*.55,W+50,H*.62);c.stroke();
+  c.fillStyle="rgba(255,255,255,.11)";
+  for(let x=0;x<420;x+=26)for(let y=0;y<420;y+=26){const r=6*(1-Math.hypot(x,y)/430);if(r>.6){c.beginPath();c.arc(x+8,y+8,r,0,7);c.fill()}}
+  for(let x=0;x<420;x+=26)for(let y=0;y<420;y+=26){const r=6*(1-Math.hypot(x,y)/430);if(r>.6){c.beginPath();c.arc(W-x-8,H-y-8,r,0,7);c.fill()}}
+  c.strokeStyle=acc;c.lineWidth=7;
+  c.beginPath();c.moveTo(-10,H*.5);c.quadraticCurveTo(120,H*.55,230,H*.62);c.stroke();
+  c.lineWidth=9;c.beginPath();c.moveTo(-10,H*.9);c.bezierCurveTo(300,H*.82,700,H*1.01,W+10,H*.94);c.stroke();
+  c.globalAlpha=.55;c.lineWidth=5;c.beginPath();c.moveTo(-10,H*.93);c.bezierCurveTo(300,H*.85,700,H*1.04,W+10,H*.97);c.stroke();
+  c.globalAlpha=1;
+}
 
-  // Latar
-  ctx.fillStyle=dark;ctx.fillRect(0,0,W,4000);
-
-  // Header
-  ctx.fillStyle=theme;
-  ctx.font="bold 78px "+FONT;
-  const nameLines=wrap(ctx,$("nama").value||"Nama Outlet",CW);
-  const tagLines=$("tag").value?1:0;
-  const hdrH=70+nameLines.length*88+(tagLines?58:0)+40;
-  ctx.fillRect(0,0,W,hdrH);
-  ctx.fillStyle="#fff";ctx.textAlign="left";
-  y=70+66;
-  for(const l of nameLines){ctx.fillText(l,PAD,y);y+=88}
-  y-=88;
-  if($("tag").value){
-    ctx.font="italic 34px "+FONT;ctx.fillStyle="rgba(255,255,255,.88)";
-    ctx.fillText($("tag").value,PAD,y+56);y+=56;
-  }
-  y=hdrH+36;
-
-  // Kartu bagian
-  function section(title,fn){
-    const innerW=CW-IN*2;
-    const h=fn(ctx,0,0,innerW,true);
-    const cardH=IN+54+h+IN-6;
-    ctx.fillStyle="#fffaf4";rr(ctx,PAD,y,CW,cardH,22);ctx.fill();
-    ctx.fillStyle=theme;ctx.font="bold 38px "+FONT;ctx.textAlign="left";
-    ctx.fillText(title,PAD+IN,y+IN+34);
-    ctx.fillRect(PAD+IN,y+IN+46,64,5);
-    fn(ctx,PAD+IN,y+IN+54+14,innerW,false);
-    y+=cardH+24;
-  }
-
-  // Jam buka
-  const jam=lines("jam").map(s=>s.split("|").map(p=>p.trim()));
-  if(jam.length)section("Jam Buka",(c,x,yy,w,dry)=>{
-    let h=0;
+/* ---------- Info tambahan ---------- */
+function extra(c,x,y,w,dry){
+  const main=$("warna").value;
+  const jam=ls("jam").map(s=>s.split("|").map(p=>p.trim()));
+  const sam=ls("sambal").map(s=>{const p=s.split("|");return{n:p[0].trim(),l:Math.max(0,Math.min(5,parseInt(p[1])||0))}});
+  const pes=ls("pesan"),showL=$("showLevel").checked;
+  let h=0;
+  const title=t=>{if(!dry){c.font=`800 30px ${TX}`;c.fillStyle=main;c.textAlign="left";c.fillText(t,x,y+h+28)}h+=48};
+  if(jam.length){
+    title("Jam Buka");
     jam.forEach((r,i)=>{
       if(!dry){
-        c.font="600 32px "+FONT;c.fillStyle="#2b221c";c.textAlign="left";c.fillText(r[0]||"",x,yy+h+36);
-        c.textAlign="right";c.font="bold 32px "+FONT;
-        c.fillStyle=/tutup/i.test(r[1]||"")?"#9a8f85":theme;
-        c.fillText(r[1]||"",x+w,yy+h+36);
-        if(i<jam.length-1){c.fillStyle="#e8dfd5";c.fillRect(x,yy+h+54,w,2)}
+        c.font=`600 28px ${TX}`;c.fillStyle="#2b1a17";c.textAlign="left";c.fillText(r[0]||"",x,y+h+30);
+        c.textAlign="right";c.font=`800 28px ${TX}`;c.fillStyle=/tutup/i.test(r[1]||"")?"#8d8580":main;c.fillText(r[1]||"",x+w,y+h+30);
+        if(i<jam.length-1){c.fillStyle="#eadfd8";c.fillRect(x,y+h+46,w,2)}
       }
-      h+=62;
+      h+=52;
     });
-    return h;
-  });
-
-  // Aneka sambal
-  const sam=lines("sambal").map(s=>{const p=s.split("|");return{n:p[0].trim(),l:Math.max(0,Math.min(5,parseInt(p[1])||0))}});
-  const showL=$("showLevel").checked;
-  if(sam.length)section("Aneka Sambal",(c,x,yy,w,dry)=>{
-    c.font="bold 30px "+FONT;
-    let cx=0,cy=0;const ch=64,gap=14;
+    h+=22;
+  }
+  if(sam.length){
+    title("Aneka Sambel");
+    c.font=`700 26px ${TX}`;
+    let cx=0,cy=0;const ch=56,gap=12;
     for(const s of sam){
-      const dots=showL&&s.l?s.l*17+10:0;
-      const cwid=c.measureText(s.n).width+44+dots;
-      if(cx+cwid>w&&cx>0){cx=0;cy+=ch+gap}
+      const d=showL&&s.l?s.l*16+10:0,cw=c.measureText(s.n).width+40+d;
+      if(cx+cw>w&&cx>0){cx=0;cy+=ch+gap}
       if(!dry){
-        c.fillStyle="#fff";rr(c,x+cx,yy+cy,cwid,ch,32);c.fill();
-        c.strokeStyle=theme;c.lineWidth=3;c.stroke();
-        c.fillStyle="#2b221c";c.textAlign="left";c.fillText(s.n,x+cx+22,yy+cy+42);
-        if(dots){
-          const dx=x+cx+22+c.measureText(s.n).width+22;
-          for(let i=0;i<s.l;i++){c.fillStyle=theme;c.beginPath();c.arc(dx+i*17,yy+cy+32,6,0,7);c.fill()}
-        }
+        c.fillStyle="#fff";rr(c,x+cx,y+h+cy,cw,ch,28);c.fill();c.strokeStyle=main;c.lineWidth=3;c.stroke();
+        c.fillStyle="#2b1a17";c.textAlign="left";c.fillText(s.n,x+cx+20,y+h+cy+37);
+        if(d){const dx=x+cx+20+c.measureText(s.n).width+20;for(let i=0;i<s.l;i++){c.fillStyle=main;c.beginPath();c.arc(dx+i*16,y+h+cy+28,6,0,7);c.fill()}}
       }
-      cx+=cwid+gap;
+      cx+=cw+gap;
     }
-    return cy+ch;
-  });
-
-  // Info pesanan
-  const pes=lines("pesan");
-  if(pes.length)section("Info Pesanan",(c,x,yy,w,dry)=>{
-    c.font="30px "+FONT;let h=0;
-    for(const p of pes){
-      const ls=wrap(c,p,w-40);
+    h+=cy+ch+22;
+  }
+  if(pes.length){
+    title("Info Pesanan");
+    c.font=`500 26px ${TX}`;
+    pes.forEach(p=>{
+      const l=wrap(c,p,w-36);
       if(!dry){
-        c.fillStyle=theme;c.beginPath();c.arc(x+8,yy+h+22,7,0,7);c.fill();
-        c.fillStyle="#2b221c";c.textAlign="left";
-        ls.forEach((l,i)=>c.fillText(l,x+36,yy+h+32+i*42));
+        c.fillStyle=main;c.beginPath();c.arc(x+8,y+h+18,7,0,7);c.fill();
+        c.fillStyle="#2b1a17";c.textAlign="left";l.forEach((t,i)=>c.fillText(t,x+34,y+h+28+i*36));
       }
-      h+=ls.length*42+14;
-    }
-    return h;
-  });
+      h+=l.length*36+10;
+    });
+    h+=22;
+  }
+  return h?h-22:0;
+}
 
-  // Lokasi + kode
-  const useQR=$("showQR").checked&&$("qr").value.trim()&&typeof qrcode==="function";
-  const useBar=$("showBar").checked&&$("bar").value.trim();
-  const alamat=$("alamat").value.trim(),telp=$("telp").value.trim();
-  if(alamat||telp||useQR||useBar)section("Lokasi dan Kontak",(c,x,yy,w,dry)=>{
-    c.font="30px "+FONT;let h=0;
-    if(alamat){const ls=wrap(c,alamat,w);ls.forEach((l,i)=>{if(!dry){c.fillStyle="#2b221c";c.textAlign="left";c.fillText(l,x,yy+34+i*42)}});h+=ls.length*42+6}
-    if(telp){if(!dry){c.font="bold 32px "+FONT;c.fillStyle=theme;c.textAlign="left";c.fillText("Telp / WA  "+telp,x,yy+h+36)}h+=56}
-    if(useQR||useBar){
-      h+=14;const bs=260;
-      if(!dry){
-        let bx=x;
-        if(useQR){
-          const q=qrcode(0,"M");q.addData($("qr").value.trim());q.make();
-          const n=q.getModuleCount(),cell=Math.floor((bs-24)/n),sz=cell*n;
-          c.fillStyle="#fff";rr(c,bx,yy+h,bs,bs,14);c.fill();
-          c.strokeStyle="#e8dfd5";c.lineWidth=2;c.stroke();
-          const ox=bx+(bs-sz)/2,oy=yy+h+(bs-sz)/2;
-          c.fillStyle="#000";
-          for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))c.fillRect(ox+k*cell,oy+r*cell,cell,cell);
-          bx+=bs+28;
-        }
-        if(useBar){
-          const bw=x+w-bx;
-          c.fillStyle="#fff";rr(c,bx,yy+h,bw,bs,14);c.fill();
-          c.strokeStyle="#e8dfd5";c.lineWidth=2;c.stroke();
-          const pat=code128($("bar").value.trim());
-          let mods=0;for(const d of pat)mods+=+d;
-          const m=Math.max(1,Math.floor((bw-60)/mods));
-          let px=bx+(bw-m*mods)/2;
-          c.fillStyle="#000";
-          pat.split("").forEach((d,i)=>{const wd=+d*m;if(i%2===0)c.fillRect(px,yy+h+34,wd,bs-110);px+=wd});
-          c.font="bold 28px "+FONT;c.textAlign="center";c.fillStyle="#000";
-          c.fillText($("bar").value.trim(),bx+bw/2,yy+h+bs-24);
-        }
-      }
-      h+=bs;
-    }
-    return h;
-  });
+/* ---------- Tata letak ---------- */
+function layout(c){
+  const L={};
+  L.hl=[$("h1").value,$("h2").value,$("h3").value].map(s=>s.trim().toUpperCase()).filter(Boolean);
+  L.size=L.hl.length?Math.min(...L.hl.map(t=>fit(c,"400",HF,t,830,250))):100;
+  L.step=L.size*.9;L.hy=390;
+  L.hEnd=L.hy+L.size*.85+L.step*Math.max(0,L.hl.length-1)+50;
+  const eh=extra(c,0,0,CW-72,true);
+  L.eh=eh;L.cardH=eh?eh+64:0;
+  L.yE=L.hEnd;
+  L.yR=L.yE+(L.cardH?L.cardH+34:0)+10;
+  L.yB=L.yR+36+170+34;
+  L.H=L.yB+260+70;
+  return L;
+}
 
-  return y+16;
+/* ---------- Gambar ---------- */
+function paint(c,L){
+  const main=$("warna").value,acc=$("aksen").value,dark=shade(main,-95);
+  bg(c,L.H,main,acc);
+
+  // Logo
+  brush(c,120,95,840,195,acc,3);
+  c.save();c.shadowColor="rgba(0,0,0,.25)";c.shadowBlur=12;c.shadowOffsetY=6;brush(c,215,255,650,80,"#fff",9);c.restore();
+  if(logoImg){
+    const s=Math.min(680/logoImg.width,190/logoImg.height);
+    c.drawImage(logoImg,540-logoImg.width*s/2,190-logoImg.height*s/2,logoImg.width*s,logoImg.height*s);
+  }else{
+    const nm=$("nama").value||"Nama Brand",fs=fit(c,"400",SC,nm,690,150);
+    c.save();c.translate(540,192);c.rotate(-.05);
+    c.font=`400 ${fs}px ${SC}`;c.textAlign="center";c.lineJoin="round";
+    c.strokeStyle="#fff";c.lineWidth=fs*.16;c.strokeText(nm,0,fs*.3);
+    c.strokeStyle=dark;c.lineWidth=fs*.05;c.strokeText(nm,0,fs*.3);
+    const g=c.createLinearGradient(0,-fs*.5,0,fs*.4);g.addColorStop(0,shade(main,30));g.addColorStop(1,shade(main,-50));
+    c.fillStyle=g;c.fillText(nm,0,fs*.3);c.restore();
+  }
+  const sb=$("sub").value.trim();
+  if(sb){
+    c.font=`700 44px ${TX}`;c.fillStyle=dark;spaced(c,sb,540,312,12);
+    const tw=[...sb].reduce((a,ch)=>a+c.measureText(ch).width+12,0);
+    c.fillRect(540-tw/2-90,298,66,4);c.fillRect(540+tw/2+24,298,66,4);
+  }
+
+  // Headline
+  c.textAlign="center";c.lineJoin="round";
+  L.hl.forEach((t,i)=>{
+    const base=L.hy+L.size*.85+L.step*i;
+    c.font=`400 ${L.size}px ${HF}`;
+    c.fillStyle=dark;c.strokeStyle=dark;
+    for(let k=18;k>0;k--)c.fillText(t,540+k*.5,base+k);
+    c.lineWidth=L.size*.13;c.strokeText(t,540,base);
+    const g=c.createLinearGradient(0,base-L.size*.8,0,base);
+    if(i===1){g.addColorStop(0,"#fff0a0");g.addColorStop(.45,acc);g.addColorStop(1,shade(acc,-45))}
+    else{g.addColorStop(0,"#fff");g.addColorStop(1,"#cfcfcf")}
+    c.fillStyle=g;c.fillText(t,540,base);
+  });
+  splash(c,150,L.hy+70,70,-1.1,acc);splash(c,125,L.hy+130,60,-.45,"#fff");
+  splash(c,930,L.hy+80,70,1.1,"#fff");splash(c,960,L.hy+140,60,.4,acc);
+  splash(c,130,L.hEnd-90,60,.35,"#fff");
+
+  // Info tambahan
+  if(L.cardH){
+    rr(c,PAD,L.yE,CW,L.cardH,30);c.fillStyle="#fffaf5";c.fill();c.strokeStyle=acc;c.lineWidth=5;c.stroke();
+    extra(c,PAD+36,L.yE+32,CW-72,false);
+  }
+
+  // Reservasi
+  const bx=PAD,by=L.yR+36,bw=CW,bh=170;
+  const bg2=c.createLinearGradient(0,by,0,by+bh);bg2.addColorStop(0,"#fff");bg2.addColorStop(1,"#efe9e4");
+  rr(c,bx,by,bw,bh,38);c.fillStyle=bg2;c.fill();c.strokeStyle=acc;c.lineWidth=5;c.stroke();
+  const lr=$("lblres").value.trim();
+  if(lr){c.font=`800 40px ${TX}`;pill(c,540,L.yR,c.measureText(lr).width+110,66,lr,40,main,acc)}
+  const wa=$("wa").value.trim();
+  if(wa){
+    waIcon(c,bx+105,by+bh/2+16,58);
+    const fs=fit(c,"800",TX,wa,bw-250,112);
+    c.font=`800 ${fs}px ${TX}`;c.fillStyle="#111";c.textAlign="left";c.fillText(wa,bx+190,by+bh/2+16+fs*.36);
+  }
+
+  // Alamat
+  const yB=L.yB;
+  rr(c,PAD,yB,630,260,36);c.fillStyle=bg2;c.fill();c.strokeStyle=acc;c.lineWidth=4;c.stroke();
+  pin(c,PAD+88,yB+125,52,main);
+  const ad=$("alamat").value.trim();
+  c.font=`700 32px ${TX}`;c.fillStyle="#1d1a17";c.textAlign="left";
+  const al=wrap(c,ad,400);
+  al.forEach((t,i)=>c.fillText(t,PAD+170,yB+130-al.length*23+34+i*46));
+  c.fillStyle="rgba(255,255,255,.7)";c.fillRect(712,yB+15,3,230);
+
+  // QR
+  rr(c,735,yB,285,260,36);c.fillStyle="#fffaf5";c.fill();c.strokeStyle=acc;c.lineWidth=4;c.stroke();
+  const qt=$("qr").value.trim();
+  if($("showQR").checked&&qt&&typeof qrcode==="function"){
+    const q=qrcode(0,"M");q.addData(qt);q.make();
+    const n=q.getModuleCount(),cell=Math.floor(190/n),sz=cell*n,ox=735+(285-sz)/2,oy=yB+22;
+    c.fillStyle="#000";
+    for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))c.fillRect(ox+k*cell,oy+r*cell,cell,cell);
+  }
+  const lq=$("lblqr").value.trim();
+  if(lq){c.font=`800 24px ${TX}`;pill(c,877,yB+260-70,c.measureText(lq).width+56,48,lq,24,main,acc)}
 }
 
 /* ---------- Render ---------- */
 const cv=$("cv");
 function render(){
-  const theme=$("warna").value;
-  const tmp=document.createElement("canvas");tmp.width=W;tmp.height=4000;
-  let H;
-  try{H=paint(tmp.getContext("2d"),theme)}catch(e){console.error(e);return}
-  cv.width=W;cv.height=Math.ceil(H);
-  paint(cv.getContext("2d"),theme);
+  try{
+    const L=layout(cv.getContext("2d"));
+    cv.width=W;cv.height=Math.ceil(L.H);
+    paint(cv.getContext("2d"),L);
+  }catch(e){console.error(e)}
 }
 let t;
-document.querySelectorAll("input,textarea").forEach(el=>el.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(render,120)}));
+document.querySelectorAll("input[type=text],input[type=checkbox],input[type=color],textarea").forEach(el=>el.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(render,120)}));
+$("logo").addEventListener("change",e=>{
+  const f=e.target.files[0];
+  if(!f){logoImg=null;render();return}
+  const im=new Image();im.onload=()=>{logoImg=im;render()};im.src=URL.createObjectURL(f);
+});
 $("dl").addEventListener("click",()=>{
   cv.toBlob(b=>{
-    const a=document.createElement("a");
-    a.href=URL.createObjectURL(b);
-    a.download=($("nama").value||"info-outlet").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".png";
+    const a=document.createElement("a");a.href=URL.createObjectURL(b);
+    a.download=($("nama").value||"poster-outlet").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".png";
     a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
   });
 });
+const FL=['400 100px "Titan One"','400 100px Lobster','500 20px Poppins','600 20px Poppins','700 20px Poppins','800 20px Poppins'];
+Promise.all(FL.map(f=>document.fonts.load(f))).catch(()=>{}).then(render);
 render();
-window.addEventListener("load",render);
 </script>
 </body>
 </html>
