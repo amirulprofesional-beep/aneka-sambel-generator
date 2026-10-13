@@ -1,804 +1,305 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Generator Poster Aneka Sambel</title>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generator Gambar Info Outlet</title>
 <style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    background:#eeeeee;
-    font-family:Arial,Helvetica,sans-serif;
-    color:#222;
-}
-
-.app{
-    width:100%;
-    min-height:100vh;
-    display:flex;
-    gap:25px;
-    padding:20px;
-}
-
-/* ================= PANEL ================= */
-
-.panel{
-    width:400px;
-    flex-shrink:0;
-    background:#fff;
-    padding:25px;
-    border-radius:18px;
-    box-shadow:0 5px 25px rgba(0,0,0,.12);
-}
-
-.panel h1{
-    margin:0 0 20px;
-    color:#b00000;
-}
-
-label{
-    display:block;
-    margin-top:15px;
-    margin-bottom:6px;
-    font-weight:bold;
-}
-
-input,
-textarea{
-    width:100%;
-    padding:12px;
-    border:1px solid #ccc;
-    border-radius:9px;
-    font-size:16px;
-    font-family:Arial,sans-serif;
-}
-
-textarea{
-    min-height:80px;
-    resize:vertical;
-}
-
-.help{
-    margin-top:5px;
-    color:#777;
-    font-size:12px;
-}
-
-.download{
-    width:100%;
-    margin-top:20px;
-    padding:14px;
-    border:0;
-    border-radius:10px;
-    background:#bd0000;
-    color:white;
-    font-size:17px;
-    font-weight:bold;
-}
-
-/* ================= PREVIEW ================= */
-
-.preview-area{
-    flex:1;
-    min-width:0;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-}
-
-/* ================= POSTER ================= */
-
-.poster{
-    /*
-       Poster asli:
-       900 x 1300
-       Rasio 9 : 13
-    */
-
-    width:min(900px,100%);
-    aspect-ratio:9 / 13;
-    position:relative;
-
-    overflow:hidden;
-
-    background:
-        radial-gradient(
-            circle at 12% 12%,
-            rgba(255,255,255,.12) 0 7px,
-            transparent 8px
-        ),
-        radial-gradient(
-            circle at 88% 22%,
-            rgba(255,255,255,.08) 0 90px,
-            transparent 92px
-        ),
-        linear-gradient(
-            145deg,
-            #870000,
-            #d00000 48%,
-            #a00000
-        );
-
-    color:white;
-
-    container-type:inline-size;
-}
-
-/* ================= DECORASI ================= */
-
-.poster::before{
-    content:"";
-    position:absolute;
-
-    width:60%;
-    aspect-ratio:1;
-
-    top:-25%;
-    right:-20%;
-
-    border:2px solid rgba(255,255,255,.12);
-    border-radius:50%;
-}
-
-.poster::after{
-    content:"";
-    position:absolute;
-
-    width:55%;
-    aspect-ratio:1;
-
-    bottom:-25%;
-    left:-20%;
-
-    border:2px solid rgba(255,210,50,.22);
-    border-radius:50%;
-}
-
-
-/* ================= ISI POSTER ================= */
-
-.poster-content{
-    position:absolute;
-    inset:0;
-
-    padding:7.2%;
-
-    display:flex;
-    flex-direction:column;
-
-    z-index:5;
-}
-
-
-/* ================= HEADER ================= */
-
-.brand{
-    text-align:center;
-}
-
-.brand-name{
-    font-family:Georgia,serif;
-
-    font-size:8cqw;
-    line-height:1;
-
-    font-weight:bold;
-    font-style:italic;
-
-    color:white;
-
-    text-shadow:
-        .35cqw .35cqw 0 #650000,
-        0 0 1.5cqw rgba(0,0,0,.3);
-}
-
-.city{
-    display:inline-block;
-
-    margin-top:2cqw;
-
-    padding:1cqw 5cqw;
-
-    background:white;
-    color:#a50000;
-
-    font-size:3.2cqw;
-    font-weight:bold;
-
-    letter-spacing:.7cqw;
-
-    transform:skew(-8deg);
-}
-
-
-/* ================= TULISAN UTAMA ================= */
-
-.main-title{
-
-    margin-top:6.5cqw;
-
-    width:100%;
-
-    min-height:24cqw;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    padding:3cqw;
-
-    background:linear-gradient(
-        180deg,
-        #ffffff,
-        #eeeeee
-    );
-
-    color:#a50000;
-
-    border:.7cqw solid #ffca28;
-
-    border-radius:3cqw;
-
-    font-size:7cqw;
-
-    font-weight:900;
-
-    line-height:1.05;
-
-    white-space:pre-line;
-
-    text-shadow:
-        .4cqw .5cqw 0 #650000;
-
-    box-shadow:
-        0 1.1cqw 0 #650000,
-        0 2cqw 3cqw rgba(0,0,0,.25);
-
-    overflow:hidden;
-}
-
-
-/* ================= RESERVASI ================= */
-
-.reservation{
-    margin-top:5.5cqw;
-}
-
-.reservation-title{
-
-    width:62%;
-
-    margin:auto;
-
-    padding:1.5cqw;
-
-    text-align:center;
-
-    background:#c90000;
-
-    border:.55cqw solid #ffca28;
-
-    border-radius:10cqw;
-
-    font-size:3.4cqw;
-
-    font-weight:bold;
-
-    letter-spacing:.4cqw;
-
-    box-shadow:
-        0 .8cqw 0 #650000;
-}
-
-.phone{
-
-    margin-top:2.5cqw;
-
-    width:100%;
-
-    padding:2cqw;
-
-    text-align:center;
-
-    background:white;
-
-    color:#111;
-
-    border:.55cqw solid #ffca28;
-
-    border-radius:2.5cqw;
-
-    font-size:4.7cqw;
-
-    font-weight:900;
-
-    letter-spacing:.15cqw;
-
-    white-space:nowrap;
-}
-
-
-/* ================= BAGIAN BAWAH ================= */
-
-.bottom{
-
-    margin-top:auto;
-
-    display:grid;
-
-    grid-template-columns:1.45fr .85fr;
-
-    gap:2.2cqw;
-
-    min-height:18cqw;
-}
-
-
-/* ================= ALAMAT ================= */
-
-.info-card{
-
-    background:white;
-
-    color:#111;
-
-    border:.55cqw solid #ffca28;
-
-    border-radius:2.5cqw;
-
-    padding:2.5cqw;
-
-    min-width:0;
-}
-
-.info-title{
-
-    color:#b00000;
-
-    font-size:2.8cqw;
-
-    font-weight:900;
-
-    margin-bottom:1.5cqw;
-}
-
-.address{
-
-    font-size:2.7cqw;
-
-    font-weight:bold;
-
-    line-height:1.25;
-
-    white-space:pre-line;
-
-    overflow-wrap:anywhere;
-}
-
-
-/* ================= QR ================= */
-
-.qr-card{
-
-    background:white;
-
-    color:#111;
-
-    border:.55cqw solid #ffca28;
-
-    border-radius:2.5cqw;
-
-    padding:1.5cqw;
-
-    min-width:0;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    overflow:hidden;
-}
-
-#qrcode{
-
-    width:15cqw;
-    height:15cqw;
-
-    max-width:100%;
-    max-height:100%;
-
-    display:flex;
-
-    justify-content:center;
-    align-items:center;
-
-    overflow:hidden;
-}
-
-#qrcode canvas,
-#qrcode img{
-
-    width:100% !important;
-    height:100% !important;
-
-    max-width:100%;
-    max-height:100%;
-
-    display:block;
-}
-
-.qr-label{
-
-    margin-top:1cqw;
-
-    padding:.8cqw 2cqw;
-
-    background:#c90000;
-
-    color:white;
-
-    border-radius:2cqw;
-
-    font-size:1.9cqw;
-
-    font-weight:bold;
-
-    white-space:nowrap;
-}
-
-
-/* ================= FOOTER ================= */
-
-.footer{
-
-    text-align:center;
-
-    margin-top:1.5cqw;
-
-    font-size:1.5cqw;
-
-    opacity:.85;
-}
-
-
-/* ================= HP ================= */
-
-@media(max-width:700px){
-
-    .app{
-        display:block;
-        padding:10px;
-    }
-
-    .panel{
-        width:100%;
-        margin-bottom:25px;
-    }
-
-    .preview-area{
-        width:100%;
-        display:flex;
-        justify-content:center;
-    }
-
-    .poster{
-        width:100%;
-        max-width:500px;
-    }
-
-}
-
-
-/* ================= DESKTOP ================= */
-
-@media(min-width:1200px){
-
-    .poster{
-        width:700px;
-    }
-
-}
-
+:root{--bg:#f3f1ee;--panel:#fff;--ink:#1d1a17;--mut:#6b645c;--line:#ddd7cf;--acc:#c8261b}
+@media (prefers-color-scheme:dark){:root{--bg:#161412;--panel:#221f1c;--ink:#f1ece6;--mut:#a39b91;--line:#383330}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1.45}
+.wrap{display:grid;grid-template-columns:minmax(300px,440px) 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+h1{font-size:20px;margin:0 0 4px}
+.sub{color:var(--mut);font-size:13px;margin:0 0 14px}
+fieldset{border:0;border-top:1px solid var(--line);margin:14px 0 0;padding:12px 0 0}
+legend{font-weight:700;font-size:14px;padding:0 6px 0 0}
+label{display:block;font-size:13px;color:var(--mut);margin:8px 0 3px}
+input[type=text],textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:14px}
+textarea{min-height:92px;resize:vertical}
+input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.row{display:flex;gap:10px;align-items:center}
+.row label{margin:0}
+input[type=color]{width:44px;height:34px;border:1px solid var(--line);border-radius:6px;background:none;padding:2px}
+.hint{font-size:12px;color:var(--mut);margin-top:3px}
+.chk{display:flex;gap:8px;align-items:center;color:var(--ink);margin:8px 0 0}
+.preview{position:sticky;top:20px;align-self:start;text-align:center}
+canvas{max-width:100%;height:auto;border-radius:8px;border:1px solid var(--line);background:#fff}
+.btns{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+button{padding:10px 18px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}
+button.main{background:var(--acc);border-color:var(--acc);color:#fff}
 </style>
 </head>
-
-
 <body>
-
-<div class="app">
-
-<!-- ================= PANEL EDIT ================= -->
-
+<div class="wrap">
 <div class="panel">
+  <h1>Generator Info Outlet</h1>
+  <p class="sub">Isi data di bawah, gambar di sebelah otomatis berubah. Klik Unduh PNG kalau sudah pas.</p>
 
-<h1>✏️ Edit Poster</h1>
+  <fieldset><legend>Outlet</legend>
+    <label for="nama">Nama outlet</label>
+    <input type="text" id="nama" value="Sambal Mantap Outlet Pusat">
+    <label for="tag">Tagline</label>
+    <input type="text" id="tag" value="Pedasnya bikin nambah nasi">
+    <div class="row" style="margin-top:10px">
+      <input type="color" id="warna" value="#c8261b"><label for="warna">Warna tema</label>
+    </div>
+  </fieldset>
 
-<label>Nama Outlet</label>
+  <fieldset><legend>Jam buka</legend>
+    <label for="jam">Satu baris satu jadwal, pisahkan dengan tanda |</label>
+    <textarea id="jam">Senin - Jumat | 10.00 - 21.00
+Sabtu | 10.00 - 22.00
+Minggu | 11.00 - 20.00
+Hari libur nasional | Tutup</textarea>
+  </fieldset>
 
-<input
-id="outlet"
-value="Aneka Sambel"
-oninput="updatePoster()">
+  <fieldset><legend>Aneka sambal</legend>
+    <label for="sambal">Satu baris satu sambal. Tingkat pedas 1-5 setelah tanda | (boleh dikosongkan)</label>
+    <textarea id="sambal">Sambal Bawang | 3
+Sambal Matah | 2
+Sambal Terasi | 4
+Sambal Ijo | 3
+Sambal Dabu-dabu | 4
+Sambal Setan | 5</textarea>
+    <label class="chk"><input type="checkbox" id="showLevel" checked> Tampilkan tingkat pedas</label>
+  </fieldset>
 
+  <fieldset><legend>Info pesanan</legend>
+    <label for="pesan">Satu baris satu poin</label>
+    <textarea id="pesan">Pesan lewat WhatsApp, GoFood, GrabFood, atau ShopeeFood
+Pesanan dalam kota diantar 30-45 menit
+Pesan untuk acara minimal H-1
+Pembayaran tunai, QRIS, dan transfer</textarea>
+  </fieldset>
 
-<label>Kota / Wilayah</label>
+  <fieldset><legend>Alamat dan kontak</legend>
+    <label for="alamat">Alamat outlet</label>
+    <textarea id="alamat" style="min-height:64px">Jl. Contoh Raya No. 12, Kelurahan Contoh, Kota Contoh</textarea>
+    <label for="telp">Telepon / WhatsApp</label>
+    <input type="text" id="telp" value="0812-3456-7890">
+  </fieldset>
 
-<input
-id="city"
-value="MALANG"
-oninput="updatePoster()">
-
-
-<label>Tulisan Utama</label>
-
-<textarea
-id="mainTitle"
-oninput="updatePoster()">KAMI
-SUDAH
-BUKA!</textarea>
-
-<div class="help">
-Gunakan Enter untuk membuat baris baru.
+  <fieldset><legend>Kode</legend>
+    <label class="chk"><input type="checkbox" id="showQR" checked> Tampilkan QR code</label>
+    <label for="qr">Isi QR (link menu, Google Maps, atau wa.me)</label>
+    <input type="text" id="qr" value="https://wa.me/6281234567890">
+    <label class="chk"><input type="checkbox" id="showBar" checked> Tampilkan barcode</label>
+    <label for="bar">Isi barcode (kode outlet / nomor pesanan)</label>
+    <input type="text" id="bar" value="OUTLET-001">
+    <div class="hint">Barcode format Code 128, huruf dan angka tanpa karakter khusus.</div>
+  </fieldset>
 </div>
 
-
-<label>Nomor Reservasi</label>
-
-<input
-id="phone"
-value="087752406609"
-oninput="updatePoster()">
-
-
-<label>Alamat</label>
-
-<textarea
-id="address"
-oninput="updatePoster()">Sanur, Jotosanur,
-Kec. Tikung,
-Kabupaten Lamongan,
-Jawa Timur</textarea>
-
-
-<label>Teks QR Code</label>
-
-<input
-id="qrText"
-value="https://maps.google.com/?q=Sanur+Jotosanur+Tikung+Lamongan"
-oninput="updateQR()">
-
-<div class="help">
-Masukkan link Google Maps untuk QR lokasi.
+<div class="preview">
+  <canvas id="cv" width="1080" height="1400" aria-label="Pratinjau gambar info outlet"></canvas>
+  <div class="btns">
+    <button class="main" id="dl">Unduh PNG</button>
+  </div>
+</div>
 </div>
 
-
-<button
-class="download"
-onclick="downloadPoster()">
-
-⬇ DOWNLOAD POSTER
-
-</button>
-
-</div>
-
-
-<!-- ================= PREVIEW ================= -->
-
-<div class="preview-area">
-
-<div
-class="poster"
-id="poster">
-
-<div class="poster-content">
-
-
-<!-- HEADER -->
-
-<div class="brand">
-
-<div
-class="brand-name"
-id="outletPreview">
-Aneka Sambel
-</div>
-
-<div
-class="city"
-id="cityPreview">
-MALANG
-</div>
-
-</div>
-
-
-<!-- TULISAN UTAMA -->
-
-<div
-class="main-title"
-id="titlePreview">
-KAMI
-SUDAH
-BUKA!
-</div>
-
-
-<!-- RESERVASI -->
-
-<div class="reservation">
-
-<div class="reservation-title">
-RESERVASI
-</div>
-
-<div
-class="phone"
-id="phonePreview">
-087752406609
-</div>
-
-</div>
-
-
-<!-- BAGIAN BAWAH -->
-
-<div class="bottom">
-
-
-<div class="info-card">
-
-<div class="info-title">
-ALAMAT
-</div>
-
-<div
-class="address"
-id="addressPreview">
-Sanur, Jotosanur,
-Kec. Tikung,
-Kabupaten Lamongan,
-Jawa Timur
-</div>
-
-</div>
-
-
-<div class="qr-card">
-
-<div id="qrcode"></div>
-
-<div class="qr-label">
-SCAN LOKASI
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="footer">
-Aneka Sambel • Selamat datang
-</div>
-
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
+const $=id=>document.getElementById(id);
+const FONT='"Trebuchet MS",Verdana,Arial,sans-serif';
+const W=1080,PAD=60,CW=W-PAD*2,IN=36;
 
-
-/* ================= UPDATE ================= */
-
-function updatePoster(){
-
-    document.getElementById("outletPreview").textContent =
-        document.getElementById("outlet").value;
-
-    document.getElementById("cityPreview").textContent =
-        document.getElementById("city").value;
-
-    document.getElementById("titlePreview").textContent =
-        document.getElementById("mainTitle").value;
-
-    document.getElementById("phonePreview").textContent =
-        document.getElementById("phone").value;
-
-    document.getElementById("addressPreview").textContent =
-        document.getElementById("address").value;
-
+/* ---------- Code 128 (set B) ---------- */
+const C128="212222,222122,222221,121223,121322,131222,122213,122312,132212,221213,221312,231212,112232,122132,122231,113222,123122,123221,223211,221132,221231,213212,223112,312131,311222,321122,321221,312212,322112,322211,212123,212321,232121,111323,131123,131321,112313,132113,132311,211313,231113,231311,112133,112331,132131,113123,113321,133121,313121,211331,231131,213113,213311,213131,311123,311321,331121,312113,312311,332111,314111,221411,431111,111224,111422,121124,121421,141122,141221,112214,112412,122114,122411,142112,142211,241211,221114,413111,241112,134111,111242,121142,121241,114212,124112,124211,411212,421112,421211,212141,214121,412121,111143,111341,131141,114113,114311,411113,411311,113141,114131,311141,411131,211412,211214,211232,2331112".split(",");
+function code128(text){
+  const vals=[104];
+  for(const ch of text){const c=ch.charCodeAt(0);vals.push(c>=32&&c<=126?c-32:0)}
+  let sum=104;for(let i=1;i<vals.length;i++)sum+=i*vals[i];
+  vals.push(sum%103,106);
+  return vals.map(v=>C128[v]).join("");
 }
 
+/* ---------- Helpers ---------- */
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.roundRect?ctx.roundRect(x,y,w,h,r):ctx.rect(x,y,w,h)}
+function wrap(ctx,text,maxW){
+  const out=[];
+  for(const para of text.split("\n")){
+    let line="";
+    for(const word of para.split(/\s+/).filter(Boolean)){
+      const t=line?line+" "+word:word;
+      if(ctx.measureText(t).width>maxW&&line){out.push(line);line=word}else line=t;
+    }
+    out.push(line);
+  }
+  return out;
+}
+const lines=id=>$(id).value.split("\n").map(s=>s.trim()).filter(Boolean);
+function shade(hex,amt){
+  const n=parseInt(hex.slice(1),16);
+  const f=c=>Math.max(0,Math.min(255,Math.round(c+amt)));
+  return "rgb("+f(n>>16)+","+f((n>>8)&255)+","+f(n&255)+")";
+}
 
-/* ================= QR ================= */
+/* ---------- Pelukis ---------- */
+function paint(ctx,theme){
+  const dark=shade(theme,-70);
+  ctx.textBaseline="alphabetic";
+  let y=0;
 
-function updateQR(){
+  // Latar
+  ctx.fillStyle=dark;ctx.fillRect(0,0,W,4000);
 
-    const qr =
-        document.getElementById("qrcode");
+  // Header
+  ctx.fillStyle=theme;
+  ctx.font="bold 78px "+FONT;
+  const nameLines=wrap(ctx,$("nama").value||"Nama Outlet",CW);
+  const tagLines=$("tag").value?1:0;
+  const hdrH=70+nameLines.length*88+(tagLines?58:0)+40;
+  ctx.fillRect(0,0,W,hdrH);
+  ctx.fillStyle="#fff";ctx.textAlign="left";
+  y=70+66;
+  for(const l of nameLines){ctx.fillText(l,PAD,y);y+=88}
+  y-=88;
+  if($("tag").value){
+    ctx.font="italic 34px "+FONT;ctx.fillStyle="rgba(255,255,255,.88)";
+    ctx.fillText($("tag").value,PAD,y+56);y+=56;
+  }
+  y=hdrH+36;
 
-    qr.innerHTML = "";
+  // Kartu bagian
+  function section(title,fn){
+    const innerW=CW-IN*2;
+    const h=fn(ctx,0,0,innerW,true);
+    const cardH=IN+54+h+IN-6;
+    ctx.fillStyle="#fffaf4";rr(ctx,PAD,y,CW,cardH,22);ctx.fill();
+    ctx.fillStyle=theme;ctx.font="bold 38px "+FONT;ctx.textAlign="left";
+    ctx.fillText(title,PAD+IN,y+IN+34);
+    ctx.fillRect(PAD+IN,y+IN+46,64,5);
+    fn(ctx,PAD+IN,y+IN+54+14,innerW,false);
+    y+=cardH+24;
+  }
 
-    const text =
-        document.getElementById("qrText").value;
-
-    new QRCode(qr,{
-
-        text:text,
-
-        width:165,
-        height:165,
-
-        correctLevel:
-            QRCode.CorrectLevel.H
-
+  // Jam buka
+  const jam=lines("jam").map(s=>s.split("|").map(p=>p.trim()));
+  if(jam.length)section("Jam Buka",(c,x,yy,w,dry)=>{
+    let h=0;
+    jam.forEach((r,i)=>{
+      if(!dry){
+        c.font="600 32px "+FONT;c.fillStyle="#2b221c";c.textAlign="left";c.fillText(r[0]||"",x,yy+h+36);
+        c.textAlign="right";c.font="bold 32px "+FONT;
+        c.fillStyle=/tutup/i.test(r[1]||"")?"#9a8f85":theme;
+        c.fillText(r[1]||"",x+w,yy+h+36);
+        if(i<jam.length-1){c.fillStyle="#e8dfd5";c.fillRect(x,yy+h+54,w,2)}
+      }
+      h+=62;
     });
+    return h;
+  });
 
+  // Aneka sambal
+  const sam=lines("sambal").map(s=>{const p=s.split("|");return{n:p[0].trim(),l:Math.max(0,Math.min(5,parseInt(p[1])||0))}});
+  const showL=$("showLevel").checked;
+  if(sam.length)section("Aneka Sambal",(c,x,yy,w,dry)=>{
+    c.font="bold 30px "+FONT;
+    let cx=0,cy=0;const ch=64,gap=14;
+    for(const s of sam){
+      const dots=showL&&s.l?s.l*17+10:0;
+      const cwid=c.measureText(s.n).width+44+dots;
+      if(cx+cwid>w&&cx>0){cx=0;cy+=ch+gap}
+      if(!dry){
+        c.fillStyle="#fff";rr(c,x+cx,yy+cy,cwid,ch,32);c.fill();
+        c.strokeStyle=theme;c.lineWidth=3;c.stroke();
+        c.fillStyle="#2b221c";c.textAlign="left";c.fillText(s.n,x+cx+22,yy+cy+42);
+        if(dots){
+          const dx=x+cx+22+c.measureText(s.n).width+22;
+          for(let i=0;i<s.l;i++){c.fillStyle=theme;c.beginPath();c.arc(dx+i*17,yy+cy+32,6,0,7);c.fill()}
+        }
+      }
+      cx+=cwid+gap;
+    }
+    return cy+ch;
+  });
+
+  // Info pesanan
+  const pes=lines("pesan");
+  if(pes.length)section("Info Pesanan",(c,x,yy,w,dry)=>{
+    c.font="30px "+FONT;let h=0;
+    for(const p of pes){
+      const ls=wrap(c,p,w-40);
+      if(!dry){
+        c.fillStyle=theme;c.beginPath();c.arc(x+8,yy+h+22,7,0,7);c.fill();
+        c.fillStyle="#2b221c";c.textAlign="left";
+        ls.forEach((l,i)=>c.fillText(l,x+36,yy+h+32+i*42));
+      }
+      h+=ls.length*42+14;
+    }
+    return h;
+  });
+
+  // Lokasi + kode
+  const useQR=$("showQR").checked&&$("qr").value.trim()&&typeof qrcode==="function";
+  const useBar=$("showBar").checked&&$("bar").value.trim();
+  const alamat=$("alamat").value.trim(),telp=$("telp").value.trim();
+  if(alamat||telp||useQR||useBar)section("Lokasi dan Kontak",(c,x,yy,w,dry)=>{
+    c.font="30px "+FONT;let h=0;
+    if(alamat){const ls=wrap(c,alamat,w);ls.forEach((l,i)=>{if(!dry){c.fillStyle="#2b221c";c.textAlign="left";c.fillText(l,x,yy+34+i*42)}});h+=ls.length*42+6}
+    if(telp){if(!dry){c.font="bold 32px "+FONT;c.fillStyle=theme;c.textAlign="left";c.fillText("Telp / WA  "+telp,x,yy+h+36)}h+=56}
+    if(useQR||useBar){
+      h+=14;const bs=260;
+      if(!dry){
+        let bx=x;
+        if(useQR){
+          const q=qrcode(0,"M");q.addData($("qr").value.trim());q.make();
+          const n=q.getModuleCount(),cell=Math.floor((bs-24)/n),sz=cell*n;
+          c.fillStyle="#fff";rr(c,bx,yy+h,bs,bs,14);c.fill();
+          c.strokeStyle="#e8dfd5";c.lineWidth=2;c.stroke();
+          const ox=bx+(bs-sz)/2,oy=yy+h+(bs-sz)/2;
+          c.fillStyle="#000";
+          for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))c.fillRect(ox+k*cell,oy+r*cell,cell,cell);
+          bx+=bs+28;
+        }
+        if(useBar){
+          const bw=x+w-bx;
+          c.fillStyle="#fff";rr(c,bx,yy+h,bw,bs,14);c.fill();
+          c.strokeStyle="#e8dfd5";c.lineWidth=2;c.stroke();
+          const pat=code128($("bar").value.trim());
+          let mods=0;for(const d of pat)mods+=+d;
+          const m=Math.max(1,Math.floor((bw-60)/mods));
+          let px=bx+(bw-m*mods)/2;
+          c.fillStyle="#000";
+          pat.split("").forEach((d,i)=>{const wd=+d*m;if(i%2===0)c.fillRect(px,yy+h+34,wd,bs-110);px+=wd});
+          c.font="bold 28px "+FONT;c.textAlign="center";c.fillStyle="#000";
+          c.fillText($("bar").value.trim(),bx+bw/2,yy+h+bs-24);
+        }
+      }
+      h+=bs;
+    }
+    return h;
+  });
+
+  return y+16;
 }
 
-
-/* ================= DOWNLOAD ================= */
-
-function downloadPoster(){
-
-    const poster =
-        document.getElementById("poster");
-
-    html2canvas(poster,{
-
-        scale:3,
-
-        useCORS:true,
-
-        backgroundColor:null
-
-    }).then(function(canvas){
-
-        const link =
-            document.createElement("a");
-
-        link.download =
-            "poster-aneka-sambel.png";
-
-        link.href =
-            canvas.toDataURL("image/png");
-
-        link.click();
-
-    });
-
+/* ---------- Render ---------- */
+const cv=$("cv");
+function render(){
+  const theme=$("warna").value;
+  const tmp=document.createElement("canvas");tmp.width=W;tmp.height=4000;
+  let H;
+  try{H=paint(tmp.getContext("2d"),theme)}catch(e){console.error(e);return}
+  cv.width=W;cv.height=Math.ceil(H);
+  paint(cv.getContext("2d"),theme);
 }
-
-
-/* ================= START ================= */
-
-updatePoster();
-updateQR();
-
+let t;
+document.querySelectorAll("input,textarea").forEach(el=>el.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(render,120)}));
+$("dl").addEventListener("click",()=>{
+  cv.toBlob(b=>{
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(b);
+    a.download=($("nama").value||"info-outlet").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".png";
+    a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  });
+});
+render();
+window.addEventListener("load",render);
 </script>
-
 </body>
 </html>
