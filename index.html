@@ -2,360 +2,133 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Generator Poster Outlet</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@500;600;700;800&family=Titan+One&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Generator Poster Buka</title>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <style>
-:root{--bg:#f3f1ee;--panel:#fff;--ink:#1d1a17;--mut:#6b645c;--line:#ddd7cf;--acc:#d4090f}
-@media (prefers-color-scheme:dark){:root{--bg:#161412;--panel:#221f1c;--ink:#f1ece6;--mut:#a39b91;--line:#383330}}
+:root{--bg:#f6f1ee;--card:#fff;--tx:#2a1210;--bd:#e2d3cf;--ac:#a50d0d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b0f0e;--card:#2a1715;--tx:#f5e9e6;--bd:#4a2b28;--ac:#e04545}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Poppins","Trebuchet MS",sans-serif;line-height:1.45}
-.wrap{display:grid;grid-template-columns:minmax(300px,440px) 1fr;gap:24px;max-width:1280px;margin:0 auto;padding:20px}
-@media(max-width:860px){.wrap{grid-template-columns:1fr}}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
-h1{font-size:20px;margin:0 0 4px}
-.sub{color:var(--mut);font-size:13px;margin:0 0 14px}
-fieldset{border:0;border-top:1px solid var(--line);margin:14px 0 0;padding:12px 0 0}
-legend{font-weight:700;font-size:14px;padding:0 6px 0 0}
-label{display:block;font-size:13px;color:var(--mut);margin:8px 0 3px}
-input[type=text],input[type=file],textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:14px}
-textarea{min-height:80px;resize:vertical}
-input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
-.row{display:flex;gap:10px;align-items:center;margin-top:10px}
-.row label{margin:0}
-input[type=color]{width:44px;height:34px;border:1px solid var(--line);border-radius:6px;background:none;padding:2px}
-.chk{display:flex;gap:8px;align-items:center;color:var(--ink);margin:8px 0 0}
-.hint{font-size:12px;color:var(--mut);margin-top:3px}
-.preview{position:sticky;top:20px;align-self:start;text-align:center}
-canvas{max-width:100%;max-height:92vh;height:auto;border-radius:8px;border:1px solid var(--line)}
-button{margin-top:12px;padding:10px 22px;border-radius:8px;border:0;background:var(--acc);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Poppins,system-ui,sans-serif;padding:14px}
+.wrap{max-width:520px;margin:auto}
+h1{font-size:20px;margin:6px 0 12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:14px}
+label{display:block;font-size:12px;font-weight:600;margin:10px 0 4px}
+input,textarea{width:100%;font:inherit;font-size:16px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx)}
+textarea{resize:vertical;min-height:60px}
+button{width:100%;font:inherit;font-weight:700;font-size:16px;padding:13px;border:0;border-radius:12px;background:var(--ac);color:#fff;margin-top:10px}
+button.alt{background:transparent;color:var(--ac);border:2px solid var(--ac)}
+canvas,img.out{width:100%;height:auto;border-radius:10px;display:block}
+.hint{font-size:12px;opacity:.75;margin-top:8px;text-align:center}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="panel">
-  <h1>Generator Poster Outlet</h1>
-  <p class="sub">Isi data, poster di sebelah berubah otomatis. Klik Unduh PNG kalau sudah pas.</p>
-
-  <fieldset><legend>Logo</legend>
-    <label for="nama">Nama brand</label>
-    <input type="text" id="nama" value="Aneka Sambel">
-    <label for="sub">Subjudul / cabang</label>
-    <input type="text" id="sub" value="MALANG">
-    <label for="logo">Atau unggah logo sendiri (menggantikan nama brand)</label>
-    <input type="file" id="logo" accept="image/*">
-  </fieldset>
-
-  <fieldset><legend>Headline (maks. 3 baris)</legend>
-    <input type="text" id="h1" value="KAMI" aria-label="Baris 1">
-    <input type="text" id="h2" value="SUDAH" aria-label="Baris 2" style="margin-top:6px">
-    <input type="text" id="h3" value="BUKA!" aria-label="Baris 3" style="margin-top:6px">
-  </fieldset>
-
-  <fieldset><legend>Reservasi</legend>
-    <label for="lblres">Label</label>
-    <input type="text" id="lblres" value="RESERVASI:">
-    <label for="wa">Nomor WhatsApp</label>
-    <input type="text" id="wa" value="087752406609">
-  </fieldset>
-
-  <fieldset><legend>Alamat dan QR</legend>
-    <label for="alamat">Alamat outlet (Enter = pindah baris)</label>
-    <textarea id="alamat">Sanur, Jotosanur,
-Kec. Tikung,
-Kabupaten Lamongan,
-Jawa Timur</textarea>
-    <label class="chk"><input type="checkbox" id="showQR" checked> Tampilkan QR code</label>
-    <label for="qr">Isi QR (link Google Maps, menu, atau wa.me)</label>
-    <input type="text" id="qr" value="https://maps.google.com/?q=Jotosanur+Tikung+Lamongan">
-    <label for="lblqr">Tulisan di bawah QR</label>
-    <input type="text" id="lblqr" value="SCAN LOKASI">
-  </fieldset>
-
-  <fieldset><legend>Info tambahan (kosongkan untuk menyembunyikan)</legend>
-    <label for="jam">Jam buka: satu baris satu jadwal, pisahkan dengan |</label>
-    <textarea id="jam">Senin - Jumat | 10.00 - 21.00
-Sabtu - Minggu | 10.00 - 22.00</textarea>
-    <label for="sambal">Aneka sambel: satu baris satu sambel, tingkat pedas 1-5 setelah |</label>
-    <textarea id="sambal">Sambel Bawang | 3
-Sambel Matah | 2
-Sambel Terasi | 4
-Sambel Ijo | 3
-Sambel Setan | 5</textarea>
-    <label class="chk"><input type="checkbox" id="showLevel" checked> Tampilkan tingkat pedas</label>
-    <label for="pesan">Info pesanan: satu baris satu poin</label>
-    <textarea id="pesan"></textarea>
-  </fieldset>
-
-  <fieldset><legend>Warna</legend>
-    <div class="row"><input type="color" id="warna" value="#d4090f"><label for="warna">Warna utama</label></div>
-    <div class="row"><input type="color" id="aksen" value="#ffc928"><label for="aksen">Warna aksen</label></div>
-  </fieldset>
+<h1>🌶️ Generator Poster “Sudah Buka”</h1>
+<div class="card">
+<label>Nama usaha</label><input id="nama" value="Aneka Sambel">
+<label>Kota / cabang</label><input id="kota" value="Malang">
+<label>Headline baris 1</label><input id="h1" value="Kami Sudah">
+<label>Headline baris 2</label><input id="h2" value="Buka!">
+<label>Judul kotak kiri</label><input id="jl" value="Reservasi / Delivery Order">
+<label>Nomor WhatsApp</label><input id="wa" inputmode="tel" value="0851-9667-5949">
+<label>Judul kotak kanan</label><input id="jr" value="Inline Food">
+<label>Deskripsi kotak kanan (Enter = baris baru)</label><textarea id="dr">Pesan lebih mudah
+lewat Inline Food</textarea>
+<label>Caption QR WhatsApp</label><input id="cw" value="Chat langsung untuk pemesanan!">
+<label>Link Google Maps</label><input id="maps" inputmode="url" value="https://maps.google.com/?q=Jl.+Saxophone+No.8+Malang">
+<label>Caption QR Lokasi</label><input id="cm" value="Temukan lokasi kami di Google Maps!">
+<label>Alamat (Enter = baris baru)</label><textarea id="alamat">Jl. Saxophone No.8, Tunggulwulung,
+Kec. Lowokwaru, Kota Malang, Jawa Timur 65143</textarea>
+<label>Warna latar</label><input id="warna" type="color" value="#9b0505" style="height:44px;padding:4px">
 </div>
-
-<div class="preview">
-  <canvas id="cv" width="1080" height="1560" aria-label="Pratinjau poster"></canvas><br>
-  <button id="dl">Unduh PNG</button>
+<div class="card">
+<canvas id="c" width="1080" height="1350"></canvas>
+<button id="gen">Buat Gambar</button>
+<button id="share" class="alt">Bagikan / Simpan</button>
+<div id="res"></div>
+<div class="hint">Rasio 4:5 (1080×1350 px). Di HP: tekan lama gambar hasil → Simpan.</div>
 </div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
-const $=id=>document.getElementById(id);
-const HF='"Titan One","Arial Black",Impact,sans-serif',SC='"Lobster","Brush Script MT",cursive',TX='"Poppins","Trebuchet MS",Arial,sans-serif';
-const W=1080,PAD=60,CW=W-PAD*2;
-let logoImg=null;
-
-/* ---------- Helpers ---------- */
-function rr(c,x,y,w,h,r){c.beginPath();c.roundRect?c.roundRect(x,y,w,h,r):c.rect(x,y,w,h)}
-function wrap(c,text,maxW){
-  const out=[];
-  for(const para of text.split("\n")){
-    let line="";
-    for(const word of para.split(/\s+/).filter(Boolean)){
-      const t=line?line+" "+word:word;
-      if(c.measureText(t).width>maxW&&line){out.push(line);line=word}else line=t;
-    }
-    out.push(line);
+const $=id=>document.getElementById(id), c=$('c'), x=c.getContext('2d'), W=1080, H=1350, GOLD='#f6c667';
+function rr(a,b,w,h,r){x.beginPath();x.roundRect(a,b,w,h,r)}
+function shade(hex,k){let n=parseInt(hex.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;const f=v=>Math.max(0,Math.min(255,Math.round(v*k)));return `rgb(${f(r)},${f(g)},${f(b)})`}
+function txt(t,px,py,font,col,al='center',lh=36){x.font=font;x.fillStyle=col;x.textAlign=al;x.textBaseline='middle';t.split('\n').forEach((l,i)=>x.fillText(l,px,py+i*lh))}
+function waLink(v){let d=v.replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);return 'https://wa.me/'+d}
+function qr(text,px,py,size){
+  const q=qrcode(0,'H');q.addData(text||' ');q.make();const n=q.getModuleCount(),cs=size/n;
+  x.fillStyle='#fff';rr(px-18,py-18,size+36,size+36,22);x.fill();x.fillStyle='#111';
+  for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))x.fillRect(px+k*cs,py+r*cs,cs+.6,cs+.6);
   }
-  return out;
+function box(a,b,w,h){x.strokeStyle=GOLD;x.lineWidth=3;rr(a,b,w,h,40);x.stroke()}
+function wrap(t,maxW,font){x.font=font;const out=[];t.split('\n').forEach(p=>{let line='';p.split(' ').forEach(w=>{const tr=line?line+' '+w:w;if(x.measureText(tr).width>maxW&&line){out.push(line);line=w}else line=tr});out.push(line)});return out}
+function dot(cx,cy,r,col){x.fillStyle=col;x.beginPath();x.arc(cx,cy,r,0,7);x.fill()}
+function pill(cx,cy,label,col){
+  const f='700 30px Poppins';x.font=f;const tw=x.measureText(label).width,w=tw+100,l=cx-w/2;
+  x.fillStyle=$('warna').value;x.strokeStyle=GOLD;x.lineWidth=3;rr(l,cy-30,w,60,30);x.fill();x.stroke();
+  dot(l+36,cy,15,col);dot(l+36,cy,6,'#fff');
+  txt(label,l+64,cy+2,f,'#fff','left');
 }
-const ls=id=>$(id).value.split("\n").map(s=>s.trim()).filter(Boolean);
-function shade(hex,amt){
-  const n=parseInt(hex.slice(1),16),f=v=>Math.max(0,Math.min(255,Math.round(v+amt)));
-  return "rgb("+f(n>>16)+","+f((n>>8)&255)+","+f(n&255)+")";
-}
-function fit(c,wt,fam,t,maxW,maxS){c.font=wt+" 100px "+fam;return Math.min(maxS,100*maxW/(c.measureText(t).width||1))}
-function spaced(c,t,cx,y,sp){
-  const ws=[...t].map(ch=>c.measureText(ch).width);
-  const tot=ws.reduce((a,b)=>a+b,0)+sp*(t.length-1);
-  let x=cx-tot/2;c.textAlign="left";
-  [...t].forEach((ch,i)=>{c.fillText(ch,x,y);x+=ws[i]+sp});
-}
-const noise=(i,s)=>Math.abs(Math.sin(i*12.9898+s*78.233)*43758.5453)%1;
-function brush(c,x,y,w,h,col,seed){
-  c.fillStyle=col;c.beginPath();const n=44;
-  for(let i=0;i<=n;i++)c.lineTo(x+w*i/n,y+noise(i,seed)*h*.14);
-  for(let i=n;i>=0;i--)c.lineTo(x+w*i/n,y+h-noise(i,seed+5)*h*.14);
-  c.closePath();c.fill();
-}
-function pill(c,cx,y,w,h,txt,fs,main,acc){
-  const g=c.createLinearGradient(0,y,0,y+h);g.addColorStop(0,shade(main,25));g.addColorStop(1,shade(main,-40));
-  rr(c,cx-w/2,y,w,h,h/2);c.fillStyle=g;c.fill();c.strokeStyle=acc;c.lineWidth=4;c.stroke();
-  c.fillStyle="#fff";c.font=`800 ${fs}px ${TX}`;c.textAlign="center";c.fillText(txt,cx,y+h/2+fs*.35);
-}
-function waIcon(c,cx,cy,r){
-  c.fillStyle="#fff";c.beginPath();c.arc(cx,cy,r,0,7);c.fill();
-  c.fillStyle="#25d366";c.beginPath();c.arc(cx,cy,r-9,0,7);c.fill();
-  c.strokeStyle="#fff";c.lineWidth=r*.2;c.lineCap="round";c.beginPath();
-  c.moveTo(cx-r*.32,cy-r*.36);c.bezierCurveTo(cx-r*.5,cy+r*.1,cx-r*.05,cy+r*.5,cx+r*.36,cy+r*.36);c.stroke();
-}
-function pin(c,cx,cy,s,col){
-  c.fillStyle=col;c.beginPath();c.moveTo(cx,cy+s);
-  c.bezierCurveTo(cx-s,cy,cx-s*.7,cy-s*.75,cx,cy-s*.75);
-  c.bezierCurveTo(cx+s*.7,cy-s*.75,cx+s,cy,cx,cy+s);c.fill();
-  c.fillStyle="#fff";c.beginPath();c.arc(cx,cy-s*.15,s*.28,0,7);c.fill();
-}
-function splash(c,x,y,len,ang,col){c.save();c.translate(x,y);c.rotate(ang);c.fillStyle=col;rr(c,-len/2,-9,len,18,9);c.fill();c.restore()}
-
-/* ---------- Latar ---------- */
-function bg(c,H,main,acc){
-  const g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,shade(main,10));g.addColorStop(1,shade(main,-60));
-  c.fillStyle=g;c.fillRect(0,0,W,H);
-  c.lineCap="round";c.strokeStyle="rgba(0,0,0,.13)";c.lineWidth=170;
-  c.beginPath();c.moveTo(-50,H*.35);c.bezierCurveTo(260,H*.42,150,H*.6,-50,H*.68);c.stroke();
-  c.beginPath();c.moveTo(W+50,H*.3);c.bezierCurveTo(820,H*.38,920,H*.55,W+50,H*.62);c.stroke();
-  c.fillStyle="rgba(255,255,255,.11)";
-  for(let x=0;x<420;x+=26)for(let y=0;y<420;y+=26){const r=6*(1-Math.hypot(x,y)/430);if(r>.6){c.beginPath();c.arc(x+8,y+8,r,0,7);c.fill()}}
-  for(let x=0;x<420;x+=26)for(let y=0;y<420;y+=26){const r=6*(1-Math.hypot(x,y)/430);if(r>.6){c.beginPath();c.arc(W-x-8,H-y-8,r,0,7);c.fill()}}
-  c.strokeStyle=acc;c.lineWidth=7;
-  c.beginPath();c.moveTo(-10,H*.5);c.quadraticCurveTo(120,H*.55,230,H*.62);c.stroke();
-  c.lineWidth=9;c.beginPath();c.moveTo(-10,H*.9);c.bezierCurveTo(300,H*.82,700,H*1.01,W+10,H*.94);c.stroke();
-  c.globalAlpha=.55;c.lineWidth=5;c.beginPath();c.moveTo(-10,H*.93);c.bezierCurveTo(300,H*.85,700,H*1.04,W+10,H*.97);c.stroke();
-  c.globalAlpha=1;
-}
-
-/* ---------- Info tambahan ---------- */
-function extra(c,x,y,w,dry){
-  const main=$("warna").value;
-  const jam=ls("jam").map(s=>s.split("|").map(p=>p.trim()));
-  const sam=ls("sambal").map(s=>{const p=s.split("|");return{n:p[0].trim(),l:Math.max(0,Math.min(5,parseInt(p[1])||0))}});
-  const pes=ls("pesan"),showL=$("showLevel").checked;
-  let h=0;
-  const title=t=>{if(!dry){c.font=`800 30px ${TX}`;c.fillStyle=main;c.textAlign="left";c.fillText(t,x,y+h+28)}h+=48};
-  if(jam.length){
-    title("Jam Buka");
-    jam.forEach((r,i)=>{
-      if(!dry){
-        c.font=`600 28px ${TX}`;c.fillStyle="#2b1a17";c.textAlign="left";c.fillText(r[0]||"",x,y+h+30);
-        c.textAlign="right";c.font=`800 28px ${TX}`;c.fillStyle=/tutup/i.test(r[1]||"")?"#8d8580":main;c.fillText(r[1]||"",x+w,y+h+30);
-        if(i<jam.length-1){c.fillStyle="#eadfd8";c.fillRect(x,y+h+46,w,2)}
-      }
-      h+=52;
-    });
-    h+=22;
-  }
-  if(sam.length){
-    title("Aneka Sambel");
-    c.font=`700 26px ${TX}`;
-    let cx=0,cy=0;const ch=56,gap=12;
-    for(const s of sam){
-      const d=showL&&s.l?s.l*16+10:0,cw=c.measureText(s.n).width+40+d;
-      if(cx+cw>w&&cx>0){cx=0;cy+=ch+gap}
-      if(!dry){
-        c.fillStyle="#fff";rr(c,x+cx,y+h+cy,cw,ch,28);c.fill();c.strokeStyle=main;c.lineWidth=3;c.stroke();
-        c.fillStyle="#2b1a17";c.textAlign="left";c.fillText(s.n,x+cx+20,y+h+cy+37);
-        if(d){const dx=x+cx+20+c.measureText(s.n).width+20;for(let i=0;i<s.l;i++){c.fillStyle=main;c.beginPath();c.arc(dx+i*16,y+h+cy+28,6,0,7);c.fill()}}
-      }
-      cx+=cw+gap;
-    }
-    h+=cy+ch+22;
-  }
-  if(pes.length){
-    title("Info Pesanan");
-    c.font=`500 26px ${TX}`;
-    pes.forEach(p=>{
-      const l=wrap(c,p,w-36);
-      if(!dry){
-        c.fillStyle=main;c.beginPath();c.arc(x+8,y+h+18,7,0,7);c.fill();
-        c.fillStyle="#2b1a17";c.textAlign="left";l.forEach((t,i)=>c.fillText(t,x+34,y+h+28+i*36));
-      }
-      h+=l.length*36+10;
-    });
-    h+=22;
-  }
-  return h?h-22:0;
-}
-
-/* ---------- Tata letak ---------- */
-function layout(c){
-  const L={};
-  L.hl=[$("h1").value,$("h2").value,$("h3").value].map(s=>s.trim().toUpperCase()).filter(Boolean);
-  L.size=L.hl.length?Math.min(...L.hl.map(t=>fit(c,"400",HF,t,830,250))):100;
-  L.step=L.size*.9;L.hy=390;
-  L.hEnd=L.hy+L.size*.85+L.step*Math.max(0,L.hl.length-1)+50;
-  const eh=extra(c,0,0,CW-72,true);
-  L.eh=eh;L.cardH=eh?eh+64:0;
-  L.yE=L.hEnd;
-  L.yR=L.yE+(L.cardH?L.cardH+34:0)+10;
-  L.yB=L.yR+36+170+34;
-  L.H=L.yB+260+70;
-  return L;
-}
-
-/* ---------- Gambar ---------- */
-function paint(c,L){
-  const main=$("warna").value,acc=$("aksen").value,dark=shade(main,-95);
-  bg(c,L.H,main,acc);
-
-  // Logo
-  brush(c,120,95,840,195,acc,3);
-  c.save();c.shadowColor="rgba(0,0,0,.25)";c.shadowBlur=12;c.shadowOffsetY=6;brush(c,215,255,650,80,"#fff",9);c.restore();
-  if(logoImg){
-    const s=Math.min(680/logoImg.width,190/logoImg.height);
-    c.drawImage(logoImg,540-logoImg.width*s/2,190-logoImg.height*s/2,logoImg.width*s,logoImg.height*s);
-  }else{
-    const nm=$("nama").value||"Nama Brand",fs=fit(c,"400",SC,nm,690,150);
-    c.save();c.translate(540,192);c.rotate(-.05);
-    c.font=`400 ${fs}px ${SC}`;c.textAlign="center";c.lineJoin="round";
-    c.strokeStyle="#fff";c.lineWidth=fs*.16;c.strokeText(nm,0,fs*.3);
-    c.strokeStyle=dark;c.lineWidth=fs*.05;c.strokeText(nm,0,fs*.3);
-    const g=c.createLinearGradient(0,-fs*.5,0,fs*.4);g.addColorStop(0,shade(main,30));g.addColorStop(1,shade(main,-50));
-    c.fillStyle=g;c.fillText(nm,0,fs*.3);c.restore();
-  }
-  const sb=$("sub").value.trim();
-  if(sb){
-    c.font=`700 44px ${TX}`;c.fillStyle=dark;spaced(c,sb,540,312,12);
-    const tw=[...sb].reduce((a,ch)=>a+c.measureText(ch).width+12,0);
-    c.fillRect(540-tw/2-90,298,66,4);c.fillRect(540+tw/2+24,298,66,4);
-  }
-
-  // Headline
-  c.textAlign="center";c.lineJoin="round";
-  L.hl.forEach((t,i)=>{
-    const base=L.hy+L.size*.85+L.step*i;
-    c.font=`400 ${L.size}px ${HF}`;
-    c.fillStyle=dark;c.strokeStyle=dark;
-    for(let k=18;k>0;k--)c.fillText(t,540+k*.5,base+k);
-    c.lineWidth=L.size*.13;c.strokeText(t,540,base);
-    const g=c.createLinearGradient(0,base-L.size*.8,0,base);
-    if(i===1){g.addColorStop(0,"#fff0a0");g.addColorStop(.45,acc);g.addColorStop(1,shade(acc,-45))}
-    else{g.addColorStop(0,"#fff");g.addColorStop(1,"#cfcfcf")}
-    c.fillStyle=g;c.fillText(t,540,base);
-  });
-  splash(c,150,L.hy+70,70,-1.1,acc);splash(c,125,L.hy+130,60,-.45,"#fff");
-  splash(c,930,L.hy+80,70,1.1,"#fff");splash(c,960,L.hy+140,60,.4,acc);
-  splash(c,130,L.hEnd-90,60,.35,"#fff");
-
-  // Info tambahan
-  if(L.cardH){
-    rr(c,PAD,L.yE,CW,L.cardH,30);c.fillStyle="#fffaf5";c.fill();c.strokeStyle=acc;c.lineWidth=5;c.stroke();
-    extra(c,PAD+36,L.yE+32,CW-72,false);
-  }
-
-  // Reservasi
-  const bx=PAD,by=L.yR+36,bw=CW,bh=170;
-  const bg2=c.createLinearGradient(0,by,0,by+bh);bg2.addColorStop(0,"#fff");bg2.addColorStop(1,"#efe9e4");
-  rr(c,bx,by,bw,bh,38);c.fillStyle=bg2;c.fill();c.strokeStyle=acc;c.lineWidth=5;c.stroke();
-  const lr=$("lblres").value.trim();
-  if(lr){c.font=`800 40px ${TX}`;pill(c,540,L.yR,c.measureText(lr).width+110,66,lr,40,main,acc)}
-  const wa=$("wa").value.trim();
-  if(wa){
-    waIcon(c,bx+105,by+bh/2+16,58);
-    const fs=fit(c,"800",TX,wa,bw-250,112);
-    c.font=`800 ${fs}px ${TX}`;c.fillStyle="#111";c.textAlign="left";c.fillText(wa,bx+190,by+bh/2+16+fs*.36);
-  }
-
-  // Alamat
-  const yB=L.yB;
-  rr(c,PAD,yB,630,260,36);c.fillStyle=bg2;c.fill();c.strokeStyle=acc;c.lineWidth=4;c.stroke();
-  pin(c,PAD+88,yB+125,52,main);
-  const ad=$("alamat").value.trim();
-  c.font=`700 32px ${TX}`;c.fillStyle="#1d1a17";c.textAlign="left";
-  const al=wrap(c,ad,400);
-  al.forEach((t,i)=>c.fillText(t,PAD+170,yB+130-al.length*23+34+i*46));
-  c.fillStyle="rgba(255,255,255,.7)";c.fillRect(712,yB+15,3,230);
-
+function spark(sx,cy,dx){x.strokeStyle=GOLD;x.lineCap='round';x.lineWidth=9;
+  [[-.5,55],[0,70],[.5,55]].forEach(([a,l])=>{const y0=cy+a*120;x.beginPath();x.moveTo(sx,y0);x.lineTo(sx+dx*l,y0+a*50);x.stroke()})}
+function draw(){
+  const bg=$('warna').value;
+  let g=x.createRadialGradient(W/2,200,50,W/2,H/2,H*.8);g.addColorStop(0,shade(bg,1.3));g.addColorStop(1,shade(bg,.55));
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.strokeStyle=GOLD;x.lineWidth=3;rr(28,28,W-56,H-56,34);x.stroke();
+  txt($('nama').value,W/2,82,'72px "Kaushan Script"','#fff');
+  txt($('kota').value,W/2,148,'700 38px Poppins','#fff');
+  x.strokeStyle='#fff';x.lineWidth=3;x.beginPath();x.moveTo(370,148);x.lineTo(450,148);x.moveTo(630,148);x.lineTo(710,148);x.stroke();
+  // brush + headline 1 (rotasi sama)
+  x.save();x.translate(540,255);x.rotate(-.05);
+  x.fillStyle=GOLD;rr(-310,-48,620,96,16);x.fill();
+  txt($('h1').value,0,2,'86px "Kaushan Script"',shade(bg,.6));x.restore();
+  // headline 2
+  x.save();x.shadowColor='rgba(0,0,0,.45)';x.shadowBlur=12;x.shadowOffsetY=8;
+  txt($('h2').value,540,425,'220px "Kaushan Script"','#fff');x.restore();
+  x.strokeStyle=GOLD;x.lineWidth=9;x.lineCap='round';x.beginPath();x.moveTo(380,525);x.lineTo(700,512);x.stroke();
+  spark(175,415,-1);spark(905,415,1);
+  // info boxes
+  box(60,600,440,165);box(555,600,465,165);
+  x.fillStyle=bg;x.strokeStyle=GOLD;x.lineWidth=4;
+  [[160,600],[640,600]].forEach(([a,b])=>{x.beginPath();x.arc(a,b+5,48,0,7);x.fill();x.stroke()});
+  txt('📞',160,610,'44px sans-serif','#fff');txt('🍴',640,610,'44px sans-serif','#fff');
+  txt($('jl').value.replace(' / ',' /\n'),225,645,'700 28px Poppins','#fff','left',34);
+  x.fillStyle=GOLD;rr(85,704,395,50,25);x.fill();
+  dot(122,729,16,'#25D366');dot(122,729,6,'#fff');
+  txt($('wa').value,305,731,'700 32px Poppins',shade(bg,.6));
+  txt($('jr').value,860,640,'700 36px Poppins','#fff');
+  txt($('dr').value,860,700,'500 26px Poppins','#fff','center',34);
   // QR
-  rr(c,735,yB,285,260,36);c.fillStyle="#fffaf5";c.fill();c.strokeStyle=acc;c.lineWidth=4;c.stroke();
-  const qt=$("qr").value.trim();
-  if($("showQR").checked&&qt&&typeof qrcode==="function"){
-    const q=qrcode(0,"M");q.addData(qt);q.make();
-    const n=q.getModuleCount(),cell=Math.floor(190/n),sz=cell*n,ox=735+(285-sz)/2,oy=yB+22;
-    c.fillStyle="#000";
-    for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))c.fillRect(ox+k*cell,oy+r*cell,cell,cell);
-  }
-  const lq=$("lblqr").value.trim();
-  if(lq){c.font=`800 24px ${TX}`;pill(c,877,yB+260-70,c.measureText(lq).width+56,48,lq,24,main,acc)}
-}
-
-/* ---------- Render ---------- */
-const cv=$("cv");
-function render(){
-  try{
-    const L=layout(cv.getContext("2d"));
-    cv.width=W;cv.height=Math.ceil(L.H);
-    paint(cv.getContext("2d"),L);
-  }catch(e){console.error(e)}
-}
-let t;
-document.querySelectorAll("input[type=text],input[type=checkbox],input[type=color],textarea").forEach(el=>el.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(render,120)}));
-$("logo").addEventListener("change",e=>{
-  const f=e.target.files[0];
-  if(!f){logoImg=null;render();return}
-  const im=new Image();im.onload=()=>{logoImg=im;render()};im.src=URL.createObjectURL(f);
-});
-$("dl").addEventListener("click",()=>{
-  cv.toBlob(b=>{
-    const a=document.createElement("a");a.href=URL.createObjectURL(b);
-    a.download=($("nama").value||"poster-outlet").toLowerCase().replace(/[^a-z0-9]+/g,"-")+".png";
-    a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  const bw=395,by=830,bh=355;
+  [[95,'Scan WhatsApp','#25D366',waLink($('wa').value),$('cw').value,'💬'],[590,'Scan Lokasi','#ea4335',$('maps').value,$('cm').value,'📍']].forEach(([a,lab,col,link,cap,mid])=>{
+    box(a,by,bw,bh);const cx=a+bw/2;
+    pill(cx,by,lab,col);
+    qr(link,cx-100,by+55,200);
+    dot(cx,by+155,30,'#fff');dot(cx,by+155,26,col==='#25D366'?col:'#fff');
+    txt(mid,cx,by+157,'34px sans-serif','#000');
+    const ls=wrap(cap,bw-70,'italic 600 24px Poppins');
+    ls.forEach((l,i)=>txt(l,cx,by+303+(i-(ls.length-1)/2)*30,'italic 600 24px Poppins','#fff'));
   });
-});
-const FL=['400 100px "Titan One"','400 100px Lobster','500 20px Poppins','600 20px Poppins','700 20px Poppins','800 20px Poppins'];
-Promise.all(FL.map(f=>document.fonts.load(f))).catch(()=>{}).then(render);
-render();
+  // alamat & footer
+  dot(150,1228,15,GOLD);x.fillStyle=GOLD;x.beginPath();x.moveTo(136,1233);x.lineTo(164,1233);x.lineTo(150,1260);x.fill();dot(150,1228,6,shade(bg,.6));
+  txt($('alamat').value,205,1235,'500 24px Poppins','#fff','left',33);
+  x.strokeStyle=GOLD;x.lineWidth=2;x.beginPath();x.moveTo(330,1300);x.lineTo(500,1300);x.moveTo(580,1300);x.lineTo(750,1300);x.stroke();
+  txt('🌶️',540,1300,'38px sans-serif','#fff');
+}
+let t;function sched(){clearTimeout(t);t=setTimeout(draw,150)}
+document.querySelectorAll('input,textarea').forEach(e=>e.addEventListener('input',sched));
+function out(){draw();$('res').innerHTML='<img class="out" style="margin-top:12px" src="'+c.toDataURL('image/png')+'" alt="Hasil poster">'}
+$('gen').onclick=out;
+$('share').onclick=()=>{draw();c.toBlob(async b=>{
+  const f=new File([b],'poster-buka.png',{type:'image/png'});
+  try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){}
+  out();
+},'image/png')};
+(document.fonts?Promise.all([document.fonts.load('72px "Kaushan Script"'),document.fonts.load('700 30px Poppins'),document.fonts.load('500 24px Poppins')]):Promise.resolve()).then(draw,draw);
+draw();
 </script>
 </body>
 </html>
